@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "name": "running shoes",
+    "price": 49.99,
+    "description": "Running shoes",
+    "tags": ["shoes", "fitness", "fashion"],
+    "image": "https://underarmour.scene7.com/is/image/Underarmour/3025425-001_DETAIL5?rp=standard-30pad|pdpMainDesktop&scl=1&fmt=jpg&qlt=85&resMode=sharp2&cache=on,on&bgc=f0f0f0&wid=566&hei=708&size=536,688"
+  },
+  {
+    "id": 2,
+    "name": "Metallica T-Shirt",
+    "price": 19.99,
+    "description": "A metallica shirt, 100% cotton, made in Turkey",
+    "tags": ["fashion", "t-shirt", "metallica", "music"],
+    "image": "https://target.scene7.com/is/image/Target/GUEST_2b8f2c52-72f7-409b-bd72-1160d9c6d0c7?wid=488&hei=488&fmt=pjpeg"
+  },
+  {
+    "id": 1,
+    "name": "running shoes",
+    "price": 49.99,
+    "description": "Running shoes",
+    "tags": ["shoes", "fitness", "fashion"],
+    "image": "https://underarmour.scene7.com/is/image/Underarmour/3025425-001_DETAIL5?rp=standard-30pad|pdpMainDesktop&scl=1&fmt=jpg&qlt=85&resMode=sharp2&cache=on,on&bgc=f0f0f0&wid=566&hei=708&size=536,688"
+  },
+  {
+    "id": 2,
+    "name": "Metallica T-Shirt",
+    "price": 19.99,
+    "description": "A metallica shirt, 100% cotton, made in Turkey",
+    "tags": ["fashion", "t-shirt", "metallica", "music"],
+    "image": "https://target.scene7.com/is/image/Target/GUEST_2b8f2c52-72f7-409b-bd72-1160d9c6d0c7?wid=488&hei=488&fmt=pjpeg"
+  },
+  {
+    "id": 1,
+    "name": "running shoes",
+    "price": 49.99,
+    "description": "Running shoes",
+    "tags": ["shoes", "fitness", "fashion"],
+    "image": "https://underarmour.scene7.com/is/image/Underarmour/3025425-001_DETAIL5?rp=standard-30pad|pdpMainDesktop&scl=1&fmt=jpg&qlt=85&resMode=sharp2&cache=on,on&bgc=f0f0f0&wid=566&hei=708&size=536,688"
+  },
+  {
+    "id": 2,
+    "name": "Metallica T-Shirt",
+    "price": 19.99,
+    "description": "A metallica shirt, 100% cotton, made in Turkey",
+    "tags": ["fashion", "t-shirt", "metallica", "music"],
+    "image": "https://target.scene7.com/is/image/Target/GUEST_2b8f2c52-72f7-409b-bd72-1160d9c6d0c7?wid=488&hei=488&fmt=pjpeg"
+  }
+]
