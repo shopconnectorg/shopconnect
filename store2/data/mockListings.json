@@ -1,0 +1,11 @@
+[
+  {
+    "id": 1,
+    "name": "Web3 Expresso machine",
+    "price": 399.99,
+    "shortDescription": "The World's First Web3 Blockchain-Powered Espresso Machine!",
+    "description": "Introducing the &quot;CryptoBrew 3000 - The World's First Web3 Blockchain-Powered Espresso Machine! \n The CryptoBrew 3000 is not your average espresso machine; it's a caffeinated masterpiece of the future. Experience decentralized bean sourcing, where premium, ethically-sourced beans are tracked through the blockchain. Our Proof of Espresso (PoE) protocol ensures every shot is authentic, like sipping a digital NFT of flavor. DeFi dosing calculates the perfect bean-to-water ratio, and CoffeeCoin integration lets you mine tokens with each brew. \n Our CryptoConnect app keeps you connected and even lets you mint limited edition NFT brew styles. Enjoy blockchain-verified brew history, and relish the ideal milk froth with blockchain precision. Join the coffee revolution; get your CryptoBrew 3000 today. It's not just a coffee maker; it's a lifestyle upgrade for the blockchain-savvy caffeine connoisseur-",
+    "tags": ["Coffee", "Coffee Machine"],
+    "image": "https://www.caffetec.nl/wp-content/uploads/2021/02/Elba-mini-lux-1.jpg"
+  }
+]

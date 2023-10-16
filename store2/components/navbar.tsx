@@ -3,10 +3,12 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Listing } from "@/types";
+import { useRouter } from "next/navigation";
 
 export default function Navbar() {
   const [cart, setCart] = useState([] as Listing[]);
   const [cartTotal, setCartTotal] = useState(0);
+  const router = useRouter();
 
   useEffect(() => {
     setCart(JSON.parse(localStorage.getItem("cart") || "[]"));
@@ -20,14 +22,20 @@ export default function Navbar() {
     setCartTotal(total);
   }, [cart]);
 
+  const clearCart = () => {
+    localStorage.setItem("cart", JSON.stringify([]));
+    setCart([]);
+    router.refresh();
+  }
+
   return (
     <div className="navbar bg-base-100">
       <div className="flex-1">
         <Link href="/" className="btn btn-ghost normal-case text-xl">
-          Shop
+          Web3 Coffee Supplies
         </Link>
       </div>
-      <div className="flex-none">
+      <div className="flex-none gap-4">
         <div className="dropdown dropdown-end">
           <label tabIndex={0} className="btn btn-ghost btn-circle">
             <div className="indicator">
@@ -50,10 +58,15 @@ export default function Navbar() {
           </label>
           <div
             tabIndex={0}
-            className="mt-3 z-[1] card card-compact dropdown-content w-52 bg-base-100 shadow"
+            className="mt-3 z-[1] card card-compact dropdown-content w-52 bg-base-300 shadow"
           >
             <div className="card-body">
-              <span className="font-bold text-lg">{cart.length} Items</span>
+              <div className="flex justify-between items-center">
+                <span className="font-bold text-lg">{cart.length} Items</span>
+                <span>
+                  <button className="btn btn-error btn-xs" onClick={()=>{clearCart()}}>clear</button>
+                </span>
+              </div>
               <ul className="menu p-0 m-0">
                 {cart.map((item, index) => (
                   <li key={index}>
@@ -66,7 +79,7 @@ export default function Navbar() {
               </ul>
               <span className="text-info">Subtotal: ${cartTotal}</span>
               <div className="card-actions">
-                <button className="btn btn-primary btn-block">View cart</button>
+                <Link href="/checkout" className="btn btn-primary btn-block">Checkout</Link>
               </div>
             </div>
           </div>
