@@ -2,6 +2,7 @@
 
 import { Listing } from "@/types"
 import { useRouter } from "next/navigation"
+import Link from "next/link";
 
 export default function Card({id, name, description, price, tags, image}: Listing) {
   const router = useRouter();
@@ -14,18 +15,19 @@ export default function Card({id, name, description, price, tags, image}: Listin
     
 
   return (
-    <div className="card w-1/4 bg-base-300 shadow-xl p-4 cursor-pointer hover:scale-105 transition-all" onClick={()=>{router.push(`/item/${id}`)}}>
-      <figure className="h-2/3">
-        <img className="rounded-xl" src={image} alt="Shoes" />
-      </figure>
-      <div className="card-body">
-        <h2 className="card-title hover:underline">{name}</h2>
-        <p>{description}</p>
-        <div className="card-actions justify-end items-center">
-          <p>${price}</p>
-          <button className="btn btn-primary" onClick={(e)=>{addToCart(e)}}>Add to Cart</button>
-        </div>
+    <a key={id} onClick={()=>router.push(`/item/${id}`)} className="group cursor-pointer">
+      <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7">
+        <img
+          src={image}
+          alt={name}
+          className="h-full w-full object-cover object-center group-hover:opacity-75"
+        />
       </div>
-    </div>
+      <h3 className="mt-4 text-sm">{name}</h3>
+      <div className="flex justify-between">
+        <p className="mt-1 text-lg font-medium">{price}</p>
+        <button className="btn btn-xs" onClick={(e)=>addToCart(e)}>Add to Cart</button>
+      </div>  
+    </a>
   )
 }

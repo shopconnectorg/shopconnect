@@ -20,7 +20,7 @@ export default function Page() {
   }, [cart]);
 
   return (
-    <div className="bg-base-200 min-h-screen px-10">
+    <div className="min-h-screen px-10">
       {cart.length > 0 ? (
         <>
           <div className="overflow-x-auto">

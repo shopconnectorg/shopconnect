@@ -19,7 +19,7 @@ export default function Page({params} : {params: {id: string}}) {
   }
 
   return (
-    <div className="hero min-h-screen bg-base-200">
+    <div className="hero min-h-screen">
       <div className="hero-content items-start flex-row h-full" style={{maxHeight:"80%"}}>
         <img src={listing?.image} className="h-full rounded-lg shadow-2xl" />
         <div className="flex justify-between flex-col h-full">

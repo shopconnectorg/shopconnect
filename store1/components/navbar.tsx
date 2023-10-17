@@ -25,11 +25,17 @@ export default function Navbar() {
   const clearCart = () => {
     localStorage.setItem("cart", JSON.stringify([]));
     setCart([]);
-    router.refresh();
+  }
+
+  const removeFromCart = (e:any, id:number) => {
+    e.stopPropagation();
+    const newCart = cart.filter(item => item.id !== id);
+    localStorage.setItem("cart", JSON.stringify(newCart));
+    setCart(newCart);
   }
 
   return (
-    <div className="navbar bg-base-100">
+    <div className="navbar shadow-md">
       <div className="flex-1">
         <Link href="/" className="btn btn-ghost normal-case text-xl">
           Coffee Grounds Shop
@@ -69,10 +75,13 @@ export default function Navbar() {
               </div>
               <ul className="menu p-0 m-0">
                 {cart.map((item, index) => (
-                  <li key={index}>
+                  <li key={index} onClick={()=>{router.push(`/item/${item.id}`)}}>
                     <a className="justify-between">
                       {item.name}
-                      <span className="badge badge-primary">${item.price}</span>
+                      <div className="flex flex-col gap-2 items-center">
+                        <span className="badge badge-primary">${item.price}</span>
+                        <span className="badge badge-error" onClick={(e)=>removeFromCart(e, item.id)}>Remove</span>
+                      </div>
                     </a>
                   </li>
                 ))}
