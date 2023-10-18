@@ -3,14 +3,17 @@
 import { Listing } from "@/types"
 import { useRouter } from "next/navigation"
 import Link from "next/link";
+import { cartContext } from "../app/template";
+import { useContext } from "react";
 
 export default function Card({id, name, description, price, tags, image}: Listing) {
   const router = useRouter();
+  const { cart, setCart } = useContext(cartContext)!;
 
   const addToCart = (e:any) => {
     e.stopPropagation();
     localStorage.setItem("cart", JSON.stringify([...JSON.parse(localStorage.getItem("cart") || "[]"), {id, name, description, price, tags, image}]))
-    router.refresh();
+    setCart([...JSON.parse(localStorage.getItem("cart") as string), {id, name, description, price, tags, image}])
   }
     
 

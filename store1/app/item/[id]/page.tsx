@@ -1,10 +1,11 @@
 'use client'
 import listings from '../../../data/mockListings.json'
-import { useEffect } from 'react'
+import { useEffect, useContext } from 'react'
 import { useRouter } from 'next/navigation'
-import Image from 'next/image';
+import { cartContext } from "../../template";
 
 export default function Page({params} : {params: {id: string}}) {
+  const { cart, setCart } = useContext(cartContext)!;
   const router = useRouter();
   const listing = listings.find(listing => listing.id === Number(params.id))
 
@@ -15,7 +16,7 @@ export default function Page({params} : {params: {id: string}}) {
   const addToCart = (e:any) => {
     e.stopPropagation();
     localStorage.setItem("cart", JSON.stringify([...JSON.parse(localStorage.getItem("cart") || "[]"), listing]))
-    router.refresh();
+    setCart([...JSON.parse(localStorage.getItem("cart") as string), listing])
   }
 
   return (
