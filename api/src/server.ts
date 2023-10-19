@@ -10,12 +10,12 @@ import express, { Request, Response, NextFunction } from 'express';
 import logger from 'jet-logger';
 
 import 'express-async-errors';
+import { StatusCodes } from 'http-status-codes';
 
 import BaseRouter from '@src/routes/api';
 import Paths from '@src/constants/Paths';
 
 import EnvVars from '@src/constants/EnvVars';
-import HttpStatusCodes from '@src/constants/HttpStatusCodes';
 
 import { NodeEnvs } from '@src/constants/misc';
 import { RouteError } from '@src/other/classes';
@@ -63,7 +63,7 @@ app.use((
   if (isTest) {
     logger.err(err, true);
   }
-  let status = HttpStatusCodes.BAD_REQUEST;
+  let status = StatusCodes.BAD_REQUEST;
   if (err instanceof RouteError) {
     status = err.status;
   }
