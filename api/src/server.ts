@@ -35,13 +35,17 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(cookieParser(EnvVars.CookieProps.Secret));
 
+const isDev = EnvVars.NodeEnv === NodeEnvs.Dev.valueOf();
+const isProduction = EnvVars.NodeEnv === NodeEnvs.Production.valueOf();
+const isTest = EnvVars.NodeEnv !== NodeEnvs.Test.valueOf();
+
 // Show routes called in console during development
-if (EnvVars.NodeEnv === NodeEnvs.Dev.valueOf()) {
+if (isDev) {
   app.use(morgan('dev'));
 }
 
 // Security
-if (EnvVars.NodeEnv === NodeEnvs.Production.valueOf()) {
+if (isProduction) {
   app.use(helmet());
 }
 
@@ -56,7 +60,7 @@ app.use((
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   next: NextFunction,
 ) => {
-  if (EnvVars.NodeEnv !== NodeEnvs.Test.valueOf()) {
+  if (isTest) {
     logger.err(err, true);
   }
   let status = HttpStatusCodes.BAD_REQUEST;
@@ -66,43 +70,22 @@ app.use((
   return res.status(status).json({ error: err.message });
 });
 
-
-// ** Front-End Content ** //
-
-// Set views directory (html)
-const viewsDir = path.join(__dirname, 'views');
-app.set('views', viewsDir);
-
-// Set static directory (js and css).
-const staticDir = path.join(__dirname, 'public');
-app.use(express.static(staticDir));
-
-// Nav to users pg by default
-app.get('/', (_: Request, res: Response) => {
-  return res.redirect('/users');
-});
-
-// Redirect to login if not logged in.
-app.get('/users', (_: Request, res: Response) => {
-  return res.sendFile('users.html', { root: viewsDir });
-});
-
-// Swagger
-const options = {
-  definition: {
-    openapi: '3.0.0',
-    info: {
-      title: 'Hello World',
-      version: '1.0.0',
+if (isDev) {
+  // Swagger API documentation
+  const options = {
+    failOnErrors: true,
+    definition: {
+      openapi: '3.0.0',
+      info: {
+        title: 'ShopConnect API',
+        version: '0.0.1',
+      },
     },
-  },
-  apis: ['./src/routes/*.ts']
-};
+    apis: ['./src/routes/*.ts']
+  };
 
-const swaggerSpec = swaggerJSDoc(options);
-
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
-
-// **** Export default **** //
+  const swaggerSpec = swaggerJSDoc(options);
+  app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+}
 
 export default app;

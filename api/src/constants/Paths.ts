@@ -4,7 +4,13 @@
 
 
 export default {
-  Base: '/api',
+  Base: '/v1',
+  Stores: {
+    Base: '/stores',
+    Promotions: {
+      Get: '/:storeId/promotions'
+    }
+  },
   Users: {
     Base: '/users',
     Get: '/all',

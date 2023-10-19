@@ -68,7 +68,7 @@
     "paths": {
       "@src/*": [
         "src/*"
-      ],
+      ]
     },
     "useUnknownInCatchVariables": false
   },
