@@ -25,7 +25,7 @@ const storeRouter = Router();
 
 /**
  * @swagger
- * /v1/stores/{storeId}/promotions/:
+ * /stores/{storeId}/promotions:
  *   get:
  *     description: Get all promotions for a given store
  *     parameters:
@@ -51,7 +51,7 @@ storeRouter.get(
 
 /**
  * @swagger
- * /v1/stores/{storeId}/promotions/{promotionId}:
+ * /stores/{storeId}/promotions/{promotionId}:
  *   post:
  *     description: Verify Polygon ID proof for promotion eligibility
  *     parameters:

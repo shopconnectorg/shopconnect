@@ -1,8 +1,6 @@
 /**
- * Express router paths go here.
+ * Express router paths
  */
-
-
 export default {
   Base: '/',
   Stores: {
