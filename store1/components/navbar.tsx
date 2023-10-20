@@ -13,7 +13,7 @@ export default function Navbar() {
 
   useEffect(() => {
     setCart(JSON.parse(localStorage.getItem("cart") || "[]"));
-  }, [cart, setCart]);
+  }, [setCart]);
 
   useEffect(() => {
     let total = 0;

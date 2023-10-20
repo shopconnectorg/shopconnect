@@ -3,7 +3,7 @@ import { IReq, IRes } from '../routes/types/express/requests';
 
 async function getAllPromotions(req: IReq, res: IRes) {
   const response = await fetch(
-    'http://localhost:8000/stores/asd/promotions/'
+    `${process.env.SHOPCONNECT_API_URL}/stores/asd/promotions/`
   );
 
   const promotions = await response.json();

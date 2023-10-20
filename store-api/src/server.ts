@@ -3,8 +3,9 @@
  */
 
 import cookieParser from 'cookie-parser';
+import cors from 'cors';
+import dotenv from 'dotenv';
 import morgan from 'morgan';
-import path from 'path';
 import helmet from 'helmet';
 import express, { Request, Response, NextFunction } from 'express';
 import logger from 'jet-logger';
@@ -34,6 +35,8 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(cookieParser(EnvVars.CookieProps.Secret));
+app.use(cors());
+dotenv.config();
 
 const isDev = EnvVars.NodeEnv === NodeEnvs.Dev.valueOf();
 const isProduction = EnvVars.NodeEnv === NodeEnvs.Production.valueOf();
