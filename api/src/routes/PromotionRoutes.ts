@@ -35,30 +35,29 @@ async function issueCredential(req: IReq, res: IRes) {
   const userDID =
   'did:polygonid:polygon:mumbai:2qMZLv6ZwBFowmtSLFkugxkkfxUAzq8S6t1KpjDUXN';
   const { dataStorage, identityWallet, proofService, issuer } = await initIssuerOnce();
-  try {
-    const issueRequest: CredentialRequest = {
-      credentialSchema: EnvVars.PolygonId.schema.url,
-      type: EnvVars.PolygonId.schema.type,
-      //TODO: Build actual credential request based on Promotion data
-      credentialSubject: {
-        id: userDID,
-        qty: 1,
-        item: {
-          name: 'Test',
-          category: 'other',
-          brand: 'N/A',
-        },
+  const issueRequest: CredentialRequest = {
+    credentialSchema: EnvVars.PolygonId.schema.url,
+    type: EnvVars.PolygonId.schema.type,
+    //TODO: Build actual credential request based on Promotion data
+    credentialSubject: {
+      id: userDID,
+      qty: 1,
+      item: {
+        name: 'Test',
+        category: 'other',
+        brand: 'N/A',
       },
-      revocationOpts: {
-        type: CredentialStatusType.Iden3ReverseSparseMerkleTreeProof,
-        id: EnvVars.PolygonId.rhsUrl,
-      },
-    };
-    const credential = await identityWallet.issueCredential(
-      issuer.did,
-      issueRequest,
-      { ipfsGatewayURL: EnvVars.PolygonId.ipfsUrl },
-    );
+    },
+    revocationOpts: {
+      type: CredentialStatusType.Iden3ReverseSparseMerkleTreeProof,
+      id: EnvVars.PolygonId.rhsUrl,
+    },
+  };
+  const credential = await identityWallet.issueCredential(
+    issuer.did,
+    issueRequest,
+    { ipfsGatewayURL: EnvVars.PolygonId.ipfsUrl },
+  );
   await dataStorage.credential.saveCredential(credential);
   const { oldTreeState } = await identityWallet.addCredentialsToMerkleTree(
     [credential],
@@ -86,9 +85,6 @@ async function issueCredential(req: IReq, res: IRes) {
   return res.status(StatusCodes.OK).json({
     state: newStateHash,
   });
-   } catch (err) {
-    console.error(err);
-  }
 }
 
 async function verifyProof(req: IReq, res: IRes) {
