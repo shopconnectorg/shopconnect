@@ -1,7 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 'use client'
 import listings from '../../../data/mockListings.json'
-import { useEffect, useContext } from 'react'
 import { useRouter } from 'next/navigation'
 import { useCart } from "../../template";
 
@@ -10,16 +9,6 @@ export default function Page({params} : {params: {id: string}}) {
   const setCart = useCart((state) => state.setCart)
   const router = useRouter();
   const listing = listings.find(listing => listing.id === Number(params.id))
-
-  useEffect(() => {
-    console.log(listing)
-  }, [listing])
-
-  const addToCart = (e:any) => {
-    e.stopPropagation();
-    localStorage.setItem("cart", JSON.stringify([...JSON.parse(localStorage.getItem("cart") || "[]"), listing]))
-    setCart([...JSON.parse(localStorage.getItem("cart") as string), listing])
-  }
 
   return (
     <div className="hero">
@@ -34,7 +23,7 @@ export default function Page({params} : {params: {id: string}}) {
           </div>
           <div className="flex flex-row items-center gap-6 justify-end">
             <p className="text-3xl font-bold">${listing?.price}</p>
-            <button className="btn btn-primary" onClick={(e) => {addToCart(e)}}>Add to Cart</button>
+            <button className="btn btn-primary" onClick={() => {}}>Add to Cart</button>
           </div>
         </div>
       </div>
