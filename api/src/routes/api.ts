@@ -51,7 +51,30 @@ storeRouter.get(
 
 /**
  * @swagger
- * /stores/{storeId}/promotions/{promotionId}:
+ * /stores/{storeId}/{promotionId}/issue:
+ *   post:
+ *     description: Issue Polygon ID credential for purchase
+ *     parameters:
+ *       - name: storeId
+ *         in: path
+ *         type: string
+ *         description: Store identifier
+ *         required: true
+ *     responses:
+ *       200:
+ *         description: 200 status code indicates successful verification
+ */
+storeRouter.post(
+  Paths.Stores.Issue.Post,
+  validate(
+    ['storeId', 'string', 'params'],
+  ),
+  PromotionRoutes.issueCredential,
+);
+
+/**
+ * @swagger
+ * /stores/{storeId}/{promotionId}/verify:
  *   post:
  *     description: Verify Polygon ID proof for promotion eligibility
  *     parameters:
@@ -70,8 +93,11 @@ storeRouter.get(
  *         description: 200 status code indicates successful verification
  */
 storeRouter.post(
-  Paths.Stores.Promotions.VerifyProof,
-  validate(['storeId', 'string', 'params'], ['promotionId', 'string', 'params']),
+  Paths.Stores.Verify.Post,
+  validate(
+    ['storeId', 'string', 'params'],
+    ['promotionId', 'string', 'params'],
+  ),
   PromotionRoutes.verifyProof
 );
 

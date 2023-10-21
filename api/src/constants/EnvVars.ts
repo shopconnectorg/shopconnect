@@ -1,9 +1,8 @@
 /**
  * Environments variables declared here.
  */
-
+import path from "path";
 /* eslint-disable node/no-process-env */
-
 
 export default {
   NodeEnv: (process.env.NODE_ENV ?? ''),
@@ -24,5 +23,31 @@ export default {
   Jwt: {
     Secret: (process.env.JWT_SECRET ??  ''),
     Exp: (process.env.COOKIE_EXP ?? ''), // exp at the same time as the cookie
+  },
+  PolygonId: {
+    rhsUrl: process.env.RHS_URL,
+    ipfsUrl: process.env.IPFS_URL,
+    walletKey: process.env.WALLET_KEY,
+    circuitsPath: path.join(__dirname, '../..', process.env.CIRCUITS_PATH),
+    schema: {
+      type: 'ShopPurchase',
+      url: process.env.PURCHASE_SCHEMA_URL,
+    },
+    polygon: process.env.POLYGON_RPC_URL && {
+      rpcUrl: process.env.POLYGON_RPC_URL,
+      contract: process.env.POLYGON_CONTRACT_ADDRESS,
+    },
+    zkEvm: process.env.ZKEVM_RPC_URL && {
+      rpcUrl: process.env.ZKEVM_RPC_URL,
+      contract: process.env.ZKEVM_CONTRACT_ADDRESS,
+    },
+    scroll: process.env.SCROLL_RPC_URL && {
+      rpcUrl: process.env.SCROLL_RPC_URL,
+      contract: process.env.SCROLL_CONTRACT_ADDRESS,
+    },
+    mantle: process.env.MANTLE_RPC_URL && {
+      rpcUrl: process.env.MANTLE_RPC_URL,
+      contract: process.env.MANTLE_CONTRACT_ADDRESS,
+    },
   },
 } as const;

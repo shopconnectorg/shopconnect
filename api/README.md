@@ -1,7 +1,14 @@
-## About
+# How to use this
+
+1. Clone it
+1. Run `./dl_circuits.sh` — it will download circuits into `./circuits` folder
+1. Copy `.env.example` into `.env` file and provide missing required values
+1. Run `npm i`, dah 😅
+1. Use the scripts described below to debug/run this baby
+
+# Auto-geneated notes
 
 This project was created with [express-generator-typescript](https://github.com/seanpmaxwell/express-generator-typescript).
-
 
 ## Available Scripts
 

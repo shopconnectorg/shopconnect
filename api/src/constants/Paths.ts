@@ -9,7 +9,13 @@ export default {
     Base: '/stores',
     Promotions: {
       Get: '/:storeId/promotions',
-      VerifyProof: '/:storeId/promotions/:promotionId'
-    }
-  }
+    },
+    Issue: {
+      Post: '/:storeId/issue',
+    },
+    Verify: {
+      Post: '/:storeId/:promotionId/verify',
+    },
+  },
+
 } as const;
