@@ -26,7 +26,6 @@ export default function Card(props : CardProps) {
     localStorage.setItem("cart", JSON.stringify(cartItems));
     setCart(cartItems);
   }
-    
 
   return (
     <a key={id} onClick={()=>router.push(`/item/${id}`)} className="group cursor-pointer">

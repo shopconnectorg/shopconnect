@@ -1,3 +1,10 @@
+## Required env config
+Add a .env.local file with the following settings:
+```
+NEXT_PUBLIC_API_URL=
+NEXT_PUBLIC_EXTENSION_ID=
+```
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
