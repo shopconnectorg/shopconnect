@@ -1,40 +1,106 @@
-import { StatusCodes } from 'http-status-codes';
-import { ethers } from 'ethers';
-import once from 'lodash/once';
-import { auth } from '@iden3/js-iden3-auth';
+import { StatusCodes } from "http-status-codes";
+import { ethers } from "ethers";
+import once from "lodash/once";
+import { auth } from "@iden3/js-iden3-auth";
 import {
   EthStateStorage,
   CredentialRequest,
   CredentialStatusType,
   JSONObject,
   AuthorizationRequestMessage,
-  core
-} from '@0xpolygonid/js-sdk';
-import EnvVars from '../constants/EnvVars';
-import { initIssuer, initVerifier } from '../lib/init';
-import { IReq, IRes } from './types/express/requests';
+  core,
+} from "@0xpolygonid/js-sdk";
+import EnvVars from "../constants/EnvVars";
+import { initIssuer, initVerifier } from "../lib/init";
+import { IReq, IRes } from "./types/express/requests";
 
-const initIssuerOnce = once(async function() {
-  const { dataStorage, identityWallet, proofService, issuer } = await initIssuer();
+const initIssuerOnce = once(async function () {
+  const { dataStorage, identityWallet, proofService, issuer } =
+    await initIssuer();
   return { dataStorage, identityWallet, proofService, issuer };
 });
 
 async function getAllPromotions(req: IReq, res: IRes) {
   return res.status(StatusCodes.OK).json([
     {
-      name: 'promotion1'
+      discount: 20,
+      discountType: "percentage",
+      expiry: 1698796800,
+      requirement: '>$800 spent on "premium brand" coffee machines.',
+      title: "Premium Coffee Beans",
+      image:
+        "https://d1uutfeu2e3s3x.cloudfront.net/images/default-source/exclusives-and-gift-detail-(1000x1000)/packed-coffee/signature-nomad/bacha-fine-flavoured-grand-moka-matari-signature-nomad-packed-whole-coffee-beans.tmb-bc00000005.jpg",
+      verificationQuery: {
+        circuitId: "credentialAtomicQuerySigV2",
+        id: 1697918971,
+        query: {
+          allowedIssuers: ["*"],
+          context: "ipfs://QmSKwZp4NVA62ErcdvNjsyS8ffScqKEtBvAMpe6DLeMET2",
+          credentialSubject: {
+            "item.category": {
+              $eq: "Coffee machine",
+            },
+          },
+          skipClaimRevocationCheck: true,
+          type: "ShopPurchase",
+        },
+      },
     },
     {
-      name: 'promotion2'
-    }
+      discount: 10,
+      discountType: "percentage",
+      expiry: 1698796800,
+      requirement: '> $50 spent on "budget" coffee machines.',
+      title: "Nescafe Coffee Beans",
+      image: "https://m.media-amazon.com/images/I/81gW593lUFL._SL1500_.jpg",
+      verificationQuery: {
+        circuitId: "credentialAtomicQuerySigV2",
+        id: 1697918971,
+        query: {
+          allowedIssuers: ["*"],
+          context: "ipfs://QmSKwZp4NVA62ErcdvNjsyS8ffScqKEtBvAMpe6DLeMET2",
+          credentialSubject: {
+            "item.category": {
+              $eq: "Coffee machine",
+            },
+          },
+          skipClaimRevocationCheck: true,
+          type: "ShopPurchase",
+        },
+      },
+    },
+    {
+      discount: 20,
+      discountType: "amount",
+      expiry: 1698102000,
+      requirement: "Recurring customer discount.",
+      title: "Premium Coffee Machine",
+      image: "https://m.media-amazon.com/images/I/51IZXFH6bWL._AC_SL1036_.jpg",
+      verificationQuery: {
+        circuitId: "credentialAtomicQuerySigV2",
+        id: 1697919056,
+        query: {
+          allowedIssuers: ["*"],
+          context: "ipfs://QmSKwZp4NVA62ErcdvNjsyS8ffScqKEtBvAMpe6DLeMET2",
+          credentialSubject: {
+            "item.name": {
+              $eq: "Storewide",
+            },
+          },
+          skipClaimRevocationCheck: true,
+          type: "ShopPurchase",
+        },
+      },
+    },
   ]);
-};
+}
 
 async function issueCredential(req: IReq, res: IRes) {
   //TODO: Get this from request body
   const userDID =
-  'did:polygonid:polygon:mumbai:2qMZLv6ZwBFowmtSLFkugxkkfxUAzq8S6t1KpjDUXN';
-  const { dataStorage, identityWallet, proofService, issuer } = await initIssuerOnce();
+    "did:polygonid:polygon:mumbai:2qMZLv6ZwBFowmtSLFkugxkkfxUAzq8S6t1KpjDUXN";
+  const { dataStorage, identityWallet, proofService, issuer } =
+    await initIssuerOnce();
   const issueRequest: CredentialRequest = {
     credentialSchema: EnvVars.PolygonId.schema.url,
     type: EnvVars.PolygonId.schema.type,
@@ -43,9 +109,9 @@ async function issueCredential(req: IReq, res: IRes) {
       id: userDID,
       qty: 1,
       item: {
-        name: 'Test',
-        category: 'other',
-        brand: 'N/A',
+        name: "Test",
+        category: "other",
+        brand: "N/A",
       },
     },
     revocationOpts: {
@@ -56,7 +122,7 @@ async function issueCredential(req: IReq, res: IRes) {
   const credential = await identityWallet.issueCredential(
     issuer.did,
     issueRequest,
-    { ipfsGatewayURL: EnvVars.PolygonId.ipfsUrl },
+    { ipfsGatewayURL: EnvVars.PolygonId.ipfsUrl }
   );
   await dataStorage.credential.saveCredential(credential);
   const { oldTreeState } = await identityWallet.addCredentialsToMerkleTree(
@@ -72,8 +138,10 @@ async function issueCredential(req: IReq, res: IRes) {
     EnvVars.PolygonId.walletKey,
     (dataStorage.states as EthStateStorage).provider
   );
-  const { isStateGenesis } = await dataStorage.identity.getIdentity(issuer.did.string());
-  
+  const { isStateGenesis } = await dataStorage.identity.getIdentity(
+    issuer.did.string()
+  );
+
   const newStateHash = await proofService.transitState(
     issuer.did,
     oldTreeState,
@@ -89,35 +157,38 @@ async function issueCredential(req: IReq, res: IRes) {
 
 async function verifyProof(req: IReq, res: IRes) {
   //TODO: Get this from request body
-  const token = 'eyJhbGciOiJncm90aDE2IiwiY2lyY3VpdElkIjoiYXV0aFYyIiwiY3JpdCI6WyJjaXJjdWl0SWQiXSwidHlwIjoiYXBwbGljYXRpb24vaWRlbjMtemtwLWpzb24ifQ.eyJpZCI6Ijk0ZGZmYzc5LWYyMjQtNDUwNi1iNzk3LWNiZmMzODNlMzJjNyIsInR5cCI6ImFwcGxpY2F0aW9uL2lkZW4zLXprcC1qc29uIiwidHlwZSI6Imh0dHBzOi8vaWRlbjMtY29tbXVuaWNhdGlvbi5pby9hdXRob3JpemF0aW9uLzEuMC9yZXNwb25zZSIsInRoaWQiOiI3NDVhMzIwZi1hN2EyLTQ5NTItYWEyNy1iNjRiZTg4MDBkNDEiLCJib2R5Ijp7InNjb3BlIjpbXX0sImZyb20iOiJkaWQ6cG9seWdvbmlkOnBvbHlnb246bXVtYmFpOjJxTVpMdjZad0JGb3dtdFNMRmt1Z3hra2Z4VUF6cThTNnQxS3BqRFVYTiIsInRvIjoiZGlkOnBvbHlnb25pZDpwb2x5Z29uOm11bWJhaToycUxoTkxWbW9RUzdwUXRwTWVLSERxa1RjRU5CWlVqMW5rWmlSTlBHZ1YifQ.eyJwcm9vZiI6eyJwaV9hIjpbIjQzMzE4NDk1MjY2MjY1MDc4MTgzNzA3MjAxNzMxOTYxODQ4MTk2ODEyNDQzNTU3MDAwNjIzMTU1MjEzMTIwNjI3NjYxODk1MzM3OTAiLCI0MjkwNDYxOTA5MTMzMDAzMzExMTgyMTE2NjE5NjE5NjY4NDgzNzQzMzE0Nzg0NjA0NTEyMTEzMDkzNzM4MTAwMzIxMTkyMDg0NjQzIiwiMSJdLCJwaV9iIjpbWyI5NDAyMDY4MzY1NDE4Mzc3Mjg1MTYwODMzNDI5MzA2NzY4ODg1MTY3MzMxODA2NzAyMDkzMzI3MzE4NjAwOTM3NjE3OTI0ODA2Mzk0IiwiNTA4MjMxOTk1NDk2MjMyMzI2Mjg1NDA4ODM4MTgzOTgzNzc4NjY0MjEyODIyMjY5NzAyODI1ODU0NDc2NDk3NjMzNDg1ODI5Mzk4MCJdLFsiMjA0NjU1NTUzNjQ2ODc4MTY3NjEyNzc3MDY1NzgwMTE4MDMwNzcxNzc1NjgyMzk1NDM0NTI0MDUxMjUyMjE0ODg0ODQ4NzczMDEyMjEiLCIxNjk3OTA1NzcyNDM3MjA3NzQ0MzkyMzc1MjUzNzk0NTMxNzM1MDY0MzUwNTE0OTAxMjMxMTYyNjU2NDU5NjE0Njk0NDY2MjM2MTkzMCJdLFsiMSIsIjAiXV0sInBpX2MiOlsiNTYzMzgzODY1NjQ4ODcyMjEyMTk1ODg4MjIyMjMzNzMyOTg2NzI0NDExMTI3MjkxMjU0MTcxODkwMTMzNDMwNjU0Nzk5MzMyMjQxNCIsIjE2NjM0MTI5MTU4NTYyMzQ0MTI3MzI0NjU2ODkzMzQ4Nzg5OTcyOTU2OTU3MTUwMzg4MzY4NzQ5MzA2ODA4NDc1ODA4ODYxMjQ3NzI1IiwiMSJdLCJwcm90b2NvbCI6Imdyb3RoMTYiLCJjdXJ2ZSI6ImJuMTI4In0sInB1Yl9zaWduYWxzIjpbIjIyOTgzMTM2MzkyOTkzNTI5Njk0NDY3MjkxODIwNjcxMjk3NjkyMDUzMzI0MTQyODE4MTMwNTk0NjEwNDM1ODA2MjEyOTE5ODEwIiwiMjAwODg3MzE3NTY2NjYwMDcyNzk3NTA1MzY2MjA5NjYxOTg1NzAxODM5MDY3NjE2NTA5MTkxNjU2OTUyNTk1NjA3MjYyNzAwNTc3OSIsIjIxMTY0NzEzMjY4NDEzNzQ2NTA5ODM0MzE0NjQ4ODI0MzM0NTI5NjY5ODQzMjQ3NDg4NDE5NDQwNTA2MTEzNzAwOTk2MzYxMTE1OTc3Il19';
+  const token =
+    "eyJhbGciOiJncm90aDE2IiwiY2lyY3VpdElkIjoiYXV0aFYyIiwiY3JpdCI6WyJjaXJjdWl0SWQiXSwidHlwIjoiYXBwbGljYXRpb24vaWRlbjMtemtwLWpzb24ifQ.eyJpZCI6Ijk0ZGZmYzc5LWYyMjQtNDUwNi1iNzk3LWNiZmMzODNlMzJjNyIsInR5cCI6ImFwcGxpY2F0aW9uL2lkZW4zLXprcC1qc29uIiwidHlwZSI6Imh0dHBzOi8vaWRlbjMtY29tbXVuaWNhdGlvbi5pby9hdXRob3JpemF0aW9uLzEuMC9yZXNwb25zZSIsInRoaWQiOiI3NDVhMzIwZi1hN2EyLTQ5NTItYWEyNy1iNjRiZTg4MDBkNDEiLCJib2R5Ijp7InNjb3BlIjpbXX0sImZyb20iOiJkaWQ6cG9seWdvbmlkOnBvbHlnb246bXVtYmFpOjJxTVpMdjZad0JGb3dtdFNMRmt1Z3hra2Z4VUF6cThTNnQxS3BqRFVYTiIsInRvIjoiZGlkOnBvbHlnb25pZDpwb2x5Z29uOm11bWJhaToycUxoTkxWbW9RUzdwUXRwTWVLSERxa1RjRU5CWlVqMW5rWmlSTlBHZ1YifQ.eyJwcm9vZiI6eyJwaV9hIjpbIjQzMzE4NDk1MjY2MjY1MDc4MTgzNzA3MjAxNzMxOTYxODQ4MTk2ODEyNDQzNTU3MDAwNjIzMTU1MjEzMTIwNjI3NjYxODk1MzM3OTAiLCI0MjkwNDYxOTA5MTMzMDAzMzExMTgyMTE2NjE5NjE5NjY4NDgzNzQzMzE0Nzg0NjA0NTEyMTEzMDkzNzM4MTAwMzIxMTkyMDg0NjQzIiwiMSJdLCJwaV9iIjpbWyI5NDAyMDY4MzY1NDE4Mzc3Mjg1MTYwODMzNDI5MzA2NzY4ODg1MTY3MzMxODA2NzAyMDkzMzI3MzE4NjAwOTM3NjE3OTI0ODA2Mzk0IiwiNTA4MjMxOTk1NDk2MjMyMzI2Mjg1NDA4ODM4MTgzOTgzNzc4NjY0MjEyODIyMjY5NzAyODI1ODU0NDc2NDk3NjMzNDg1ODI5Mzk4MCJdLFsiMjA0NjU1NTUzNjQ2ODc4MTY3NjEyNzc3MDY1NzgwMTE4MDMwNzcxNzc1NjgyMzk1NDM0NTI0MDUxMjUyMjE0ODg0ODQ4NzczMDEyMjEiLCIxNjk3OTA1NzcyNDM3MjA3NzQ0MzkyMzc1MjUzNzk0NTMxNzM1MDY0MzUwNTE0OTAxMjMxMTYyNjU2NDU5NjE0Njk0NDY2MjM2MTkzMCJdLFsiMSIsIjAiXV0sInBpX2MiOlsiNTYzMzgzODY1NjQ4ODcyMjEyMTk1ODg4MjIyMjMzNzMyOTg2NzI0NDExMTI3MjkxMjU0MTcxODkwMTMzNDMwNjU0Nzk5MzMyMjQxNCIsIjE2NjM0MTI5MTU4NTYyMzQ0MTI3MzI0NjU2ODkzMzQ4Nzg5OTcyOTU2OTU3MTUwMzg4MzY4NzQ5MzA2ODA4NDc1ODA4ODYxMjQ3NzI1IiwiMSJdLCJwcm90b2NvbCI6Imdyb3RoMTYiLCJjdXJ2ZSI6ImJuMTI4In0sInB1Yl9zaWduYWxzIjpbIjIyOTgzMTM2MzkyOTkzNTI5Njk0NDY3MjkxODIwNjcxMjk3NjkyMDUzMzI0MTQyODE4MTMwNTk0NjEwNDM1ODA2MjEyOTE5ODEwIiwiMjAwODg3MzE3NTY2NjYwMDcyNzk3NTA1MzY2MjA5NjYxOTg1NzAxODM5MDY3NjE2NTA5MTkxNjU2OTUyNTk1NjA3MjYyNzAwNTc3OSIsIjIxMTY0NzEzMjY4NDEzNzQ2NTA5ODM0MzE0NjQ4ODI0MzM0NTI5NjY5ODQzMjQ3NDg4NDE5NDQwNTA2MTEzNzAwOTk2MzYxMTE1OTc3Il19";
   //TODO: Get this from request body
   const { issuer } = await initIssuerOnce();
   const authRequest = auth.createAuthorizationRequest(
-    'Sample reason',
+    "Sample reason",
     issuer.did.string(),
     //FIXME: This is not actually needed, but would be better to provide real API endpoint URL
-    'https://example.com',
+    "https://example.com"
   );
   //TODO: Make up this
-  authRequest.id = 'xxx';
+  authRequest.id = "xxx";
   //TODO: Make up this
-  authRequest.thid = 'xxx';
-  authRequest.body.scope = [{
-    circuitId: "credentialAtomicQuerySigV2",
-    //FIXME:
-    id: 1,
-    query: {
-      allowedIssuers: ["*"],
-      context: "ipfs://QmVg3yP7pKe8n3kiCneGN4x2GFkJHoRjvo25uwUUhAsJvq",
-      credentialSubject: {
-        "item.kind": {
-          $eq: "coffee"
-        }
+  authRequest.thid = "xxx";
+  authRequest.body.scope = [
+    {
+      circuitId: "credentialAtomicQuerySigV2",
+      //FIXME:
+      id: 1,
+      query: {
+        allowedIssuers: ["*"],
+        context: "ipfs://QmVg3yP7pKe8n3kiCneGN4x2GFkJHoRjvo25uwUUhAsJvq",
+        credentialSubject: {
+          "item.kind": {
+            $eq: "coffee",
+          },
+        },
+        skipClaimRevocationCheck: true,
+        type: "ShopPurchase",
       },
-      skipClaimRevocationCheck: true,
-      type: "ShopPurchase",
     },
-  }];
+  ];
   const verifier = await initVerifier();
   // Now, the magic begins 🪄
   const result = await verifier.fullVerify(token, authRequest, {
@@ -127,10 +198,10 @@ async function verifyProof(req: IReq, res: IRes) {
   return res.status(StatusCodes.OK).json({
     message: "OK",
   });
-};
+}
 
 export default {
   getAllPromotions,
   issueCredential,
-  verifyProof
+  verifyProof,
 } as const;
