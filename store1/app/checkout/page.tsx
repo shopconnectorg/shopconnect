@@ -3,15 +3,17 @@
 import { useEffect, useState, useContext } from "react";
 import { Listing, CartItem } from "@/types";
 import Link from "next/link";
-import { cartContext } from "../template";
+import { useCart } from "../template";
 
 export default function Page() {
-  const { cart, setCart } = useContext(cartContext)!;
+  const cart = useCart((state) => state.cart);
+  const setCart = useCart((state) => state.setCart)
   const [cartTotal, setCartTotal] = useState(0);
+  const [connected, setConnected] = useState(true);
 
   useEffect(() => {
     setCart(JSON.parse(localStorage.getItem("cart") || "[]"));
-  }, [localStorage.getItem("cart")]);
+  }, [setCart]);
 
   useEffect(() => {
     let total = 0;
@@ -100,7 +102,20 @@ export default function Page() {
               </div>
             </li>
             <li className="flex py-6 flex-col">
-              <button className="btn">Connect to ShopConnect</button>
+              {
+                connected ? (
+                  <div className="flex justify-between items-center">
+                    <div>
+                      <p>
+                        Connected to account: <span className="font-bold">0x19798057298</span>
+                      </p>
+                    </div>
+                    <button className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700">Pay</button>
+                  </div>
+                ) : (
+                  <button className="btn btn-success">Connect to ShopConnect</button>
+                )
+              }
             </li>
           </ul>
         </div>

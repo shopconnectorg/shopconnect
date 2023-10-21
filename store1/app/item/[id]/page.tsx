@@ -1,11 +1,13 @@
+/* eslint-disable @next/next/no-img-element */
 'use client'
 import listings from '../../../data/mockListings.json'
 import { useEffect, useContext } from 'react'
 import { useRouter } from 'next/navigation'
-import { cartContext } from "../../template";
+import { useCart } from "../../template";
 
 export default function Page({params} : {params: {id: string}}) {
-  const { cart, setCart } = useContext(cartContext)!;
+  const cart = useCart((state) => state.cart);
+  const setCart = useCart((state) => state.setCart)
   const router = useRouter();
   const listing = listings.find(listing => listing.id === Number(params.id))
 

@@ -5,11 +5,12 @@ import { Dialog, Transition } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
 import listing from '../data/mockListings.json'
 import { Listing, CartItem } from '@/types'
-import { cartContext } from "../app/template";
+import { useCart } from "../app/template";
 import Link from 'next/link'
 
 export default function ShoppingCart({open, setOpen}: {open: boolean, setOpen: (value: boolean) => void}) {
-  const { cart, setCart } = useContext(cartContext)!;
+  const cart = useCart((state) => state.cart);
+  const setCart = useCart((state) => state.setCart)
   const [cartTotal, setCartTotal] = useState(0);
 
   useEffect(() => {

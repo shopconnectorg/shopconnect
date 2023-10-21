@@ -4,12 +4,13 @@
 import { Listing, CardProps } from "@/types"
 import { useRouter } from "next/navigation"
 import Link from "next/link";
-import { cartContext } from "../app/template";
+import { useCart } from "../app/template";
 import { useContext } from "react";
 
 export default function Card(props : CardProps) {
   const router = useRouter();
-  const { cart, setCart } = useContext(cartContext)!;
+  const cart = useCart((state) => state.cart);
+  const setCart = useCart((state) => state.setCart)
   const { id, name, description, price, tags, image } = props.listing;
   const discount = props.discount || 0;
 
