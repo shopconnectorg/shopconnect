@@ -1,10 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState, createContext, Dispatch, SetStateAction, useContext } from "react";
-import { Listing } from "@/types";
 import { useRouter } from "next/navigation";
-import { cartContext } from "../app/template";
 
 export default function Navbar() {
   const router = useRouter();

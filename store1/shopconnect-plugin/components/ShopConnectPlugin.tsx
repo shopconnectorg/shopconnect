@@ -2,15 +2,10 @@
 import { useEffect } from "react";
 
 import { initializeShopConnect } from '../service';
+import { useShopConnect } from '../hooks';
 
 export default () => {
-  useEffect(() => {
-    const asyncInit = async () => {
-      await initializeShopConnect();
-    };
-
-    asyncInit();
-  }, []);
+  useShopConnect();
 
   return (
     <div id="shopconnect-plugin" />
