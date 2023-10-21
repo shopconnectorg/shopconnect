@@ -1,13 +1,12 @@
 /* eslint-disable @next/next/no-img-element */
 'use client'
-import listings from '../../../data/mockListings.json'
-import { useRouter } from 'next/navigation'
-import { useCart } from "../../template";
+import { addAbortListener } from 'events';
+import listings from '../../../data/mockListings.json';
+import { useStore } from '../../../src/store';
+import { Item } from '@/src/types';
 
 export default function Page({params} : {params: {id: string}}) {
-  const cart = useCart((state) => state.cart);
-  const setCart = useCart((state) => state.setCart)
-  const router = useRouter();
+  const addToCart = useStore((state) => state.addToCart);
   const listing = listings.find(listing => listing.id === Number(params.id))
 
   return (
@@ -23,7 +22,7 @@ export default function Page({params} : {params: {id: string}}) {
           </div>
           <div className="flex flex-row items-center gap-6 justify-end">
             <p className="text-3xl font-bold">${listing?.price}</p>
-            <button className="btn btn-primary" onClick={() => {}}>Add to Cart</button>
+            <button className="btn btn-primary" onClick={() => { addToCart(listing as Item) }}>Add to Cart</button>
           </div>
         </div>
       </div>

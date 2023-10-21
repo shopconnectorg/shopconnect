@@ -1,76 +1,57 @@
-"use client";
+'use client';
+import { Fragment, useState } from 'react'
+import { Dialog, Transition } from '@headlessui/react'
+import { Bars3Icon, ShoppingBagIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import { useCartTotalQuantity } from '../src/hooks';
+import Link from 'next/link';
+import ShoppingCart from './ShoppingCart';
+import { useStore } from '@/src/store';
 
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-
-export default function Navbar() {
-  const router = useRouter();
+export default () => {
+  const cartDisplayed = useStore((state) => state.cartDisplayed);
+  const setCartDisplayed = useStore((state) => state.setCartDisplayed);
+  const totalQuantity = useCartTotalQuantity();
 
   return (
-    <div className="navbar shadow-md">
-      <div className="flex-1">
-        <Link href="/" className="btn btn-ghost normal-case text-xl">
-          Coffee Grounds Shop
-        </Link>
-      </div>
-      <div className="flex-none gap-4">
-        <div className="dropdown dropdown-end">
-          <label tabIndex={0} className="btn btn-ghost btn-circle">
-            <div className="indicator">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
-                />
-              </svg>
-              <span className="badge badge-sm indicator-item bg-red-500">0</span>
-            </div>
-          </label>
-          <div
-            tabIndex={0}
-            className="mt-3 z-[1] card card-compact dropdown-content w-52 bg-base-300 shadow"
-            >
-            <div className="card-body">
-              <div className="flex justify-between items-center">
-                <span className="font-bold text-lg">0 Items</span>
-                <span>
-                  <button className="btn btn-error btn-xs" onClick={()=>{}}>clear</button>
-                </span>
+    <div className="bg-white">
+      <header className="relative bg-white">
+        <p className="flex h-10 items-center justify-center bg-indigo-600 px-4 text-sm font-medium text-white sm:px-6 lg:px-8">
+          Get special discounts by using ShopConnect ⚡
+        </p>
+
+        <nav aria-label="Top" className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="border-b border-gray-200">
+            <div className="flex h-16 items-center">
+              {/* Logo */}
+              <div className="ml-4 flex lg:ml-0">
+                <Link href="/">
+                  <span className="sr-only">Your Company</span>
+                  <img
+                    className="h-8 w-auto"
+                    src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+                    alt=""
+                  />
+                </Link>
               </div>
-              <ul className="menu p-0 m-0">
-                {[].map((item, index) => (
-                  <li key={index} onClick={()=>{router.push(`/item/${item.id}`)}}>
-                    <a className="justify-between">
-                      {item.name}
-                      <div className="flex flex-col gap-2 items-center">
-                        <span className="badge badge-primary">${item.price}</span>
-                        <span className="badge badge-error" onClick={(e)=>removeFromCart(e, item.id)}>Remove</span>
-                      </div>
-                    </a>
-                  </li>
-                ))}
-              </ul>
-              <span className="text-info">Subtotal: $0</span>
-              <div className="card-actions">
-                <Link href="/cart" className="btn btn-primary btn-block">View Cart</Link>
+
+              <div className="ml-auto flex items-center">
+                {/* Cart */}
+                <div className="ml-4 flow-root lg:ml-6">
+                  <a href="#" className="group -m-2 flex items-center p-2" onClick={() => { setCartDisplayed(true) }}>
+                    <ShoppingBagIcon
+                      className="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
+                      aria-hidden="true"
+                    />
+                    <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">{totalQuantity}</span>
+                    <span className="sr-only">items in cart, view bag</span>
+                  </a>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div>
-          <button className="btn btn-success">
-            Connect
-          </button>
-        </div>
-      </div>
+        </nav>
+      </header>
+      <ShoppingCart open={cartDisplayed} setOpen={setCartDisplayed} />
     </div>
-  );
+  )
 }

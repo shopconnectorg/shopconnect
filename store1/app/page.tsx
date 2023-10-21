@@ -15,9 +15,9 @@ export default function Home() {
           {listing.map((item) => {
             const discountedItem = itemsForDiscount.find((discountItem) => discountItem.id === item.id);
             if (discountedItem) {
-              return <Card key={item.id} listing={item} discount={discountedItem.discount} />
+              return <Card key={item.id} item={item} discount={discountedItem.discount} />
             }
-            return <Card key={item.id} listing={item} discount={0}/>
+            return <Card key={item.id} item={item} discount={0}/>
           })}
         </div>
       </div>
