@@ -1,12 +1,15 @@
 'use client';
 import { useEffect } from "react";
 
-import { fetchPromotions } from '../service';
+import { initializeShopConnect } from '../service';
 
 export default () => {
   useEffect(() => {
-    fetchPromotions();
-    // Load promotions when initialised
+    const asyncInit = async () => {
+      await initializeShopConnect();
+    };
+
+    asyncInit();
   }, []);
 
   return (

@@ -3,19 +3,10 @@
 import { Listing } from "@/types"
 import { useRouter } from "next/navigation"
 import Link from "next/link";
-import { cartContext } from "../app/template";
 import { useContext } from "react";
 
 export default function Card({id, name, description, price, tags, image}: Listing) {
   const router = useRouter();
-  const { cart, setCart } = useContext(cartContext)!;
-
-  const addToCart = (e:any) => {
-    e.stopPropagation();
-    localStorage.setItem("cart", JSON.stringify([...JSON.parse(localStorage.getItem("cart") || "[]"), {id, name, description, price, tags, image}]))
-    setCart([...JSON.parse(localStorage.getItem("cart") as string), {id, name, description, price, tags, image}])
-  }
-    
 
   return (
     <a key={id} onClick={()=>router.push(`/item/${id}`)} className="group cursor-pointer">
@@ -29,7 +20,7 @@ export default function Card({id, name, description, price, tags, image}: Listin
       <h3 className="mt-4 text-sm">{name}</h3>
       <div className="flex justify-between">
         <p className="mt-1 text-lg font-medium">{price}</p>
-        <button className="btn btn-xs" onClick={(e)=>addToCart(e)}>Add to Cart</button>
+        <button className="btn btn-xs" onClick={(e)=>{}}>Add to Cart</button>
       </div>  
     </a>
   )

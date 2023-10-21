@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Navbar, Card } from "@/components";
+import { Card } from "@/components";
 import listing from "../data/mockListings.json"
 import Link from "next/link";
 
