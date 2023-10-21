@@ -1,9 +1,8 @@
 "use client";
 
 import { Navbar } from "@/components";
-import { useEffect, useState, createContext } from "react";
 import { Listing, Cart, CartItem } from "@/types";
-import { create } from "zustand";
+import { create } from 'zustand'
 
 export const useCart = create<Cart>((set) => ({
   cart: [],

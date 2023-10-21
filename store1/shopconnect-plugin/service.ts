@@ -3,9 +3,7 @@ const fetchPromotions = async () => {
     `${process.env.NEXT_PUBLIC_API_URL}/shopconnect-plugin/promotions`
   );
 
-  const promotions = await response.json();
-
-  console.log(promotions);
+  return await response.json();
 };
 
 export {

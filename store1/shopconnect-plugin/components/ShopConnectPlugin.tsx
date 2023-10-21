@@ -1,13 +1,9 @@
 'use client';
-import { useEffect } from "react";
 
-import { fetchPromotions } from '../service';
+import { useShopConnect } from '../hooks';
 
 export default () => {
-  useEffect(() => {
-    fetchPromotions();
-    // Load promotions when initialised
-  }, []);
+  useShopConnect();
 
   return (
     <div id="shopconnect-plugin" />

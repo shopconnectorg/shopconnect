@@ -18,6 +18,8 @@
     "zustand": "^4.4.4"
   },
   "devDependencies": {
+    "@redux-devtools/extension": "^3.2.5",
+    "@types/chrome": "^0.0.248",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
