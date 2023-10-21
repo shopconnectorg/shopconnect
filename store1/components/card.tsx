@@ -1,19 +1,29 @@
+/* eslint-disable @next/next/no-img-element */
 'use client'
 
-import { Listing } from "@/types"
+import { Listing, CardProps } from "@/types"
 import { useRouter } from "next/navigation"
 import Link from "next/link";
 import { cartContext } from "../app/template";
 import { useContext } from "react";
 
-export default function Card({id, name, description, price, tags, image}: Listing) {
+export default function Card(props : CardProps) {
   const router = useRouter();
   const { cart, setCart } = useContext(cartContext)!;
+  const { id, name, description, price, tags, image } = props.listing;
+  const discount = props.discount || 0;
 
   const addToCart = (e:any) => {
     e.stopPropagation();
-    localStorage.setItem("cart", JSON.stringify([...JSON.parse(localStorage.getItem("cart") || "[]"), {id, name, description, price, tags, image}]))
-    setCart([...JSON.parse(localStorage.getItem("cart") as string), {id, name, description, price, tags, image}])
+    const cartItems = JSON.parse(localStorage.getItem("cart") || "[]");
+    const itemIndex = cartItems.findIndex((item: any) => item.id === id);
+    if (itemIndex !== -1) {
+      cartItems[itemIndex].quantity += 1;
+    } else {
+      cartItems.push({id, name, description, price, tags, image, quantity: 1});
+    }
+    localStorage.setItem("cart", JSON.stringify(cartItems));
+    setCart(cartItems);
   }
     
 
@@ -28,7 +38,18 @@ export default function Card({id, name, description, price, tags, image}: Listin
       </div>
       <h3 className="mt-4 text-sm">{name}</h3>
       <div className="flex justify-between">
-        <p className="mt-1 text-lg font-medium">{price}</p>
+        {
+          discount > 0 ?
+            <div>
+              <div className="flex flex-row gap-2">
+                <p className="mt-1 text-lg font-medium line-through">${price}</p>
+                <p className="mt-1 text-lg font-medium text-red-500">-{discount * 100}%</p>
+              </div>
+              <p className="mt-1 text-lg font-medium">${(price - (price * discount)).toFixed(2)}</p> 
+            </div>
+            : 
+            <p className="mt-1 text-lg font-medium">${price}</p>
+        }
         <button className="btn btn-xs" onClick={(e)=>addToCart(e)}>Add to Cart</button>
       </div>  
     </a>

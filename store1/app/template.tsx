@@ -2,17 +2,17 @@
 
 import { Navbar } from "@/components"
 import { useEffect, useState, createContext } from 'react'
-import { Listing, Cart } from '@/types'
+import { Listing, Cart, CartItem } from '@/types'
 
 export const cartContext = createContext<Cart | null>(null);
 
 export default function Template({ children }: { children: React.ReactNode }) {
-  const [cart, setCart] = useState<Listing[] | null>(null);
+  const [cart, setCart] = useState<CartItem[] | null>(null);
 
   return (
-    <div className="bg-base-100">
+    <div className="min-h-screen">
       <cartContext.Provider value={{ cart, setCart }}>
-        <Navbar />
+        <Navbar/>
         {children}
       </cartContext.Provider>
     </div>  

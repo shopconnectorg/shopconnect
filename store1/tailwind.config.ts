@@ -20,7 +20,7 @@ const config: Config = {
     require('@tailwindcss/aspect-ratio')
   ],
   daisyUI: {
-    themes: ["dark", "light", "dracula"],
+    themes: ["light"],
   }
 }
 export default config

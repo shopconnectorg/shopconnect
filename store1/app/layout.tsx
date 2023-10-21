@@ -16,11 +16,8 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" data-theme="dracula">
-      <body className={inter.className}>
-        {children}
-        <ShopConnectPlugin />
-      </body>
+    <html lang="en">
+      <body className={inter.className} data-theme="light">{children}</body>
     </html>
   )
 }

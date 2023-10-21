@@ -1,4 +1,4 @@
-interface Listing {
+export interface Listing {
   id: number,
   name: string,
   description: string,
@@ -6,5 +6,3 @@ interface Listing {
   tags: string[],
   image: string
 }
-
-export type { Listing }
