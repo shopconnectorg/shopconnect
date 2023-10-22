@@ -2,14 +2,17 @@
 import { useEffect } from 'react';
 import { useShopConnectStore } from './sc-store';
 import { confirmPromotion, fetchPromotions } from './service';
+import { useStore } from '@/src/store';
 
 const useShopConnect = async () => {
   const listenerInitialized = useShopConnectStore((state) => state.listenerInitialized);
   const updateListenerInitialized = useShopConnectStore((state) => state.updateListenerInitialized);
+  const addDiscount = useStore((state) => state.addDiscount);
 
   const applyPromotion = async (promotionId: number) => {
     setTimeout(async () => {
       await confirmPromotion(promotionId);
+      addDiscount({ itemId: 2, percentage: 20 });
     }, 2000);
   }
 

@@ -15,7 +15,7 @@ const confirmPromotion = async (promotionId: number) => {
 
 const fetchPromotions = async () => {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/shopconnect-plugin/promotions`
+    `${process.env.NEXT_PUBLIC_API_URL}/shopconnect-plugin/promotions?did=test`
   );
 
   const promotionsData = await response.json();

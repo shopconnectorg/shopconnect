@@ -5,15 +5,19 @@ import Link from "next/link";
 import { useCart } from "../app/template";
 import { useContext } from "react";
 import type { Item } from '../src/types';
+import { useStore } from "@/src/store";
 
 type CardProps = {
-  discount: number;
   item: Item;
 }
 
-export default function Card({ discount, item }: CardProps) {
-  const router = useRouter();
+export default function Card({ item }: CardProps) {
   const { id, name, price, image } = item;
+  const addToCart = useStore((state) => state.addToCart);
+
+  const discounts = useStore((state) => state.discounts);
+  const discountItem = discounts.find((discount) => discount.itemId === id);
+  const discount = discountItem ? discountItem.percentage / 100 : 0;
 
   return (
     <Link key={id} href={`/item/${id}`}  className="group cursor-pointer">
@@ -38,7 +42,7 @@ export default function Card({ discount, item }: CardProps) {
             : 
             <p className="mt-1 text-lg font-medium">${price}</p>
         }
-        <button className="btn btn-xs" onClick={(e)=>{}}>Add to Cart</button>
+        <button className="btn btn-xs" onClick={(e)=>{ e.preventDefault(); addToCart(item); }}>Add to Cart</button>
       </div>  
     </Link>
   )

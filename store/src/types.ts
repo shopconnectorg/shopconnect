@@ -15,3 +15,8 @@ export interface CartItem {
 export interface Cart {
   items: CartItem[];
 }
+
+export interface Discount {
+  itemId: number,
+  percentage: number
+}

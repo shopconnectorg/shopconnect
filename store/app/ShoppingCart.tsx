@@ -13,10 +13,26 @@ type ShoppingCartProps = {
 export default ({ cartDisplayed, setCartDisplayed }) => {
   const cart = useStore((state) => state.cart);
   const cartTotalPrice = useCartTotalPrice();
+  const discounts = useStore((state) => state.discounts);
 
   const removeFromCart = (event, id) => {
     event.stopPropagation();
   };
+
+  const itemPrice = (item) => {
+    const discountItem = discounts.find((discount) => discount.itemId === item.id);
+    const discount = discountItem ? discountItem.percentage / 100 : 0;
+    return (
+      <Fragment>
+        <p className={`ml-4${discount > 0 && ' line-through'}`}>{item.price}</p>
+        {discount > 0 && (
+          <p className="mt-1 text-lg font-medium text-red-500">
+            {(1 - discount) * item.price}
+          </p>
+        )}
+      </Fragment>
+    )
+  }
 
   return (
     <Transition.Root show={cartDisplayed} as={Fragment}>
@@ -82,7 +98,7 @@ export default ({ cartDisplayed, setCartDisplayed }) => {
                                       <h3>
                                         <a href={cartItem.item.name}>{cartItem.item.name}</a>
                                       </h3>
-                                      <p className="ml-4">{cartItem.item.price}</p>
+                                      {itemPrice(cartItem.item)}
                                     </div>
                                     <p className="mt-1 text-sm text-gray-500">{cartItem.item.name}</p>
                                   </div>

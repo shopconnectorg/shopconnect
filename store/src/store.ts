@@ -2,15 +2,17 @@ import { create } from 'zustand';
 import { devtools, persist } from 'zustand/middleware';
 import type {} from '@redux-devtools/extension' // required for devtools typing
 
-import { Cart, CartItem, Item } from './types';
+import { Cart, Discount, Item } from './types';
 
 type Store = {
   cart: Cart,
-  cartDisplayed: boolean
+  cartDisplayed: boolean,
+  discounts: Discount[]
 };
 
 type StoreActions = {
   addToCart: (item: Item) => void,
+  addDiscount: (discount: Discount) => void,
   setCartDisplayed: (value: boolean) => void
 }
 
@@ -21,6 +23,7 @@ const useStore = create<Store & StoreActions>()(
         // State
         cart: { items: [] },
         cartDisplayed: false,
+        discounts: [],
         // Actions
         addToCart: (item) => set(() => {
           const cart = get().cart
@@ -47,6 +50,13 @@ const useStore = create<Store & StoreActions>()(
               items: [...cart.items, { item, quantity: 1 }]
             },
             cartDisplayed: true,
+          }
+        }),
+        addDiscount: (discount) => set(() => {
+          const discounts = get().discounts;
+
+          return {
+            discounts: [...discounts, discount]
           }
         }),
         setCartDisplayed: (value) => set(() => ({ cartDisplayed: value }))
