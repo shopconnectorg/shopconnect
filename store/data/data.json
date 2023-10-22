@@ -1,0 +1,160 @@
+{
+  "store1": {
+    "items": [
+      {
+        "id": 1,
+        "name": "Cheap coffee maker",
+        "description": "Compact, simple, and budget-friendly, it brews a perfect cup in minutes. Your morning ritual just got more economical.",
+        "price": 100,
+        "image": "https://m.media-amazon.com/images/I/51IZXFH6bWL._AC_SL1036_.jpg"
+      },
+      {
+        "id": 2,
+        "name": "Premium Coffee Maker",
+        "description": "Where coffee becomes an art form. Precision, customization, and premium design for a coffee experience like no other.",
+        "price": 1000,
+        "image": "https://m.media-amazon.com/images/I/61MsT0AQSrL._AC_SL1500_.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Coffee Grinder",
+        "description": "Grind your own coffee beans and experience a whole new level of freshness.",
+        "price": 50,
+        "image": "https://img.fruugo.com/product/8/62/224110628_max.jpg"
+      },
+      {
+        "id": 4,
+        "name": "Coffee Scale",
+        "description": "The perfect cup of coffee requires precision. This scale helps you measure the right amount of coffee beans and water.",
+        "price": 25,
+        "image": "https://www.coffeeitalia.nl/media/catalog/product/cache/1/image/988x988/9df78eab33525d08d6e5fb8d27136e95/a/c/acaia_lunar_1.jpg"
+      },
+      {
+        "id": 5,
+        "name": "Coffee Bean Canister",
+        "description": "Keep your coffee beans fresh with this stainless steel canister. The vacuum seal keeps oxygen out and the built-in calendar wheel helps you track the freshness of your beans.",
+        "price": 25,
+        "image": "https://cdn.apartmenttherapy.info/image/upload/v1675356132/gen-workflow/product-database/prepara-evak-coffee-storage-container-amazon.jpg"
+      },
+      {
+        "id": 6,
+        "name": "Coffee Filter",
+        "description": "Specially designed for your coffee maker, this filter ensures that you get the perfect cup of coffee every time.",
+        "price": 5,
+        "image": "https://m.media-amazon.com/images/I/71lT9mEEJVL._AC_SL1500_.jpg"
+      },
+      {
+        "id": 7,
+        "name": "Coffee Mug",
+        "description": "The perfect vessel for your coffee. The double-walled glass keeps your coffee warm and your hands cool.",
+        "price": 15,
+        "image": "https://m.media-amazon.com/images/I/51Xrpnw14DL.jpg"
+      },
+      {
+        "id": 8,
+        "name": "Coffee Spoon",
+        "description": "The perfect spoon to measure your coffee. The long handle lets you reach into the bottom of the bag and the clip keeps your coffee fresh.",
+        "price": 5,
+        "image": "https://www.nicobar.com/cdn/shop/products/1_a6ca942b-49ac-42d1-b4fe-320b7773eed4_1024x.jpg?v=1661364738"
+      }
+    ]
+  },
+  "store2": {
+    "items": [
+      {
+        "id": 1,
+        "name": "Cheap Nescafe Beans",
+        "description": "Budget-friendly coffee beans. Enjoy the rich taste of Nescafe without the premium price tag. Perfect for daily sips without breaking the bank.",
+        "price": 15,
+        "image": "https://m.media-amazon.com/images/I/81gW593lUFL._SL1500_.jpg"
+      },
+      {
+        "id": 2,
+        "name": "Premium Coffee Beans",
+        "description": "Hand-selected from the world's finest regions, these beans deliver a truly luxurious coffee experience. Each cup is a journey into the world of exquisite flavors and aromas. Elevate your coffee ritual with our premium beans.",
+        "price": 100,
+        "image": "https://d1uutfeu2e3s3x.cloudfront.net/images/default-source/exclusives-and-gift-detail-(1000x1000)/packed-coffee/signature-nomad/bacha-fine-flavoured-grand-moka-matari-signature-nomad-packed-whole-coffee-beans.tmb-bc00000005.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Cheap Nescafe Ground Coffee",
+        "description": "Affordable coffee essential. Experience the classic Nescafe taste without the hefty price. Ideal for everyday brewing, it's the budget-savvy choice for your coffee fix.",
+        "price": 15,
+        "image": "https://assets.iceland.co.uk/i/iceland/nescafe_original_300g_28542_T1?$pdpmain_2x$"
+      },
+      {
+        "id": 4,
+        "name": "Premium Ground Coffee",
+        "description": "The epitome of coffee excellence. Sourced from the world's finest beans and expertly ground, it elevates your coffee experience to a whole new level. With exceptional flavor and aroma, each cup is a testament to the art of coffee.",
+        "price": 100,
+        "image": "https://www.cafesaula.com/store/720-large_default/gran-espresso-premium-original-fine-cinnamon-250g-ground-coffee.jpg"
+      },
+      {
+        "id": 5,
+        "name": "Cheap Instant Coffee",
+        "description": "Affordable instant coffee fix. Enjoy the convenience and classic coffee taste without the premium cost.",
+        "price": 15,
+        "image": "https://i5.walmartimages.com/seo/Nescafe-Taster-S-Choice-Instant-Coffee-House-Blend-14-Oz-Wholesale-Cheap-Discount-Bulk-1-Pack_83892081-4bfa-44c9-85ca-454573dc10ec.1c87b60dd1ee4ce912e567263f6c7442.jpeg"
+      },
+      {
+        "id": 6,
+        "name": "Premium Instant Coffee",
+        "description": "The pinnacle of instant coffee luxury. Crafted from the world's finest coffee beans, it redefines your instant coffee experience with unmatched flavor and aroma.",
+        "price": 100,
+        "image": "https://www.starbucksathome.com/au/sites/default/files/2021-06/SBUX_Website_Premium_Can_LongShadow_MediumRoastCan.png"
+      }
+    ]
+  },
+  "discounts": [
+    {
+      "name": "Premium Coffee Beans",
+      "discount": 0.2,
+      "requirement": ">$800 spent on 'premium brand' coffee machines"
+    },
+    {
+      "name": "$2 OFF next order",
+      "discount": 2,
+      "requirement": "Follow Starbucks on Twitter"
+    },
+    {
+      "name": "Nescafe Coffee Beans",
+      "discount": 0.1,
+      "requirement": "> $50 spent on 'cheap brand' coffee machines"
+    },
+    {
+      "name": "Cheap Coffee Beans",
+      "discount": 0.2,
+      "requirement": "> $100 spent on 'cheap brand' coffee machines"
+    },
+    {
+      "name": "Free Coffee Mug",
+      "discount": 15,
+      "requirement": "> $1000 spent in-store"
+    },
+    {
+      "name": "Free Coffee Spoon",
+      "discount": 5,
+      "requirement": "> $500 spent in-store"
+    },
+    {
+      "name": "Free Coffee Filter",
+      "discount": 5,
+      "requirement": "> $500 spent in-store"
+    },
+    {
+      "name": "Free Coffee Scale",
+      "discount": 25,
+      "requirement": "> $1000 spent in-store"
+    },
+    {
+      "name": "Free Coffee Grinder",
+      "discount": 50,
+      "requirement": "> $1500 spent in-store"
+    },
+    {
+      "name": "Free Premium Coffee Maker",
+      "discount": 1000,
+      "requirement": "> $10000 spent in-store"
+    }
+  ]
+}

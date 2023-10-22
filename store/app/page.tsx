@@ -1,7 +1,5 @@
-import Image from "next/image";
 import { Card } from "@/components";
-import listing from "../data/mockListings.json"
-import Link from "next/link";
+import { items } from '../data/storeData';
 
 export default function Home() {
   const itemsForDiscount = [{"id": 1, "discount": 0.1}]
@@ -12,7 +10,7 @@ export default function Home() {
         <h1 className="card-title">Products</h1>
 
         <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
-          {listing.map((item) => {
+          {items.map((item) => {
             const discountedItem = itemsForDiscount.find((discountItem) => discountItem.id === item.id);
             if (discountedItem) {
               return <Card key={item.id} item={item} discount={discountedItem.discount} />

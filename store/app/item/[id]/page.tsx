@@ -1,13 +1,13 @@
 /* eslint-disable @next/next/no-img-element */
 'use client'
 import { addAbortListener } from 'events';
-import listings from '../../../data/mockListings.json';
+import { items } from '@/data/storeData';
 import { useStore } from '../../../src/store';
 import { Item } from '@/src/types';
 
 export default function Page({params} : {params: {id: string}}) {
   const addToCart = useStore((state) => state.addToCart);
-  const listing = listings.find(listing => listing.id === Number(params.id))
+  const listing = items.find(item => item.id === Number(params.id));
 
   return (
     <div className="hero">
