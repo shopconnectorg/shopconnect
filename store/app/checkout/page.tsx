@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState, useContext, Fragment } from "react";
 import { Listing, CartItem } from "@/types";
 import Link from "next/link";
 import { useCartTotalPrice } from '@/src/hooks';
@@ -12,6 +12,7 @@ export default function Page() {
 
   const cart = useStore((store) => store.cart)
   const cartTotalPrice = useCartTotalPrice();
+  const discounts = useStore((state) => state.discounts);
   const [purchaseComplete, setPurchaseComplete] = useState(false);
 
   const removeFromCart = (e: any, id: number) => {
@@ -34,11 +35,22 @@ export default function Page() {
   };
 
   const purchase = () => {
-    // setLoading(true);
-    // setInterval(() => {
-    //   setLoading(false);
-    //   setPurchaseComplete(true);
-    // }, 3000);
+    setPurchaseComplete(true);
+  }
+
+  const itemPrice = (item) => {
+    const discountItem = discounts.find((discount) => discount.itemId === item.id);
+    const discount = discountItem ? discountItem.percentage / 100 : 0;
+    return (
+      <Fragment>
+        <p className={`ml-4${discount > 0 && ' line-through'}`}>{item.price}</p>
+        {discount > 0 && (
+          <p className="mt-1 text-lg font-medium text-red-500">
+            {(1 - discount) * item.price}
+          </p>
+        )}
+      </Fragment>
+    )
   }
 
   return (
@@ -107,7 +119,7 @@ export default function Page() {
                             <h3>
                               <a href={cartItem.item.name}>{cartItem.item.name}</a>
                             </h3>
-                            <p className="ml-4">{cartItem.item.price}</p>
+                            <p className="ml-4">{itemPrice(cartItem.item)}</p>
                           </div>
                           <p className="mt-1 text-sm text-gray-500">
                             {cartItem.item.description}
