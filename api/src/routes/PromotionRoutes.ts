@@ -36,7 +36,7 @@ async function getAllPromotions(req: IReq, res: IRes) {
         type: EnvVars.PolygonId.Schema.type,
       },
     }];
-    return { promotion, authRequest };
+    return { ...promotion, authRequest };
   }));
 };
 
