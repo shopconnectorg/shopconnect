@@ -5,7 +5,7 @@
     "discountType": "percentage",
     "expiry": 1698796800,
     "requirement": ">$800 spent on \"premium brand\" coffee machines.",
-    "title": "Premium Coffee Beans (local)",
+    "title": "Premium Coffee Beans",
     "image": "https://d1uutfeu2e3s3x.cloudfront.net/images/default-source/exclusives-and-gift-detail-(1000x1000)/packed-coffee/signature-nomad/bacha-fine-flavoured-grand-moka-matari-signature-nomad-packed-whole-coffee-beans.tmb-bc00000005.jpg",
     "verificationQuery": {
       "circuitId": "credentialAtomicQuerySigV2",
@@ -29,7 +29,7 @@
     "discountType": "percentage",
     "expiry": 1698796800,
     "requirement": "> $50 spent on \"budget\" coffee machines.",
-    "title": "Nescafe Coffee Beans (local)",
+    "title": "Nescafe Coffee Beans",
     "image": "https://m.media-amazon.com/images/I/81gW593lUFL._SL1500_.jpg",
     "verificationQuery": {
       "circuitId": "credentialAtomicQuerySigV2",
@@ -53,7 +53,7 @@
     "discountType": "amount",
     "expiry": 1698102000,
     "requirement": "Recurring customer discount.",
-    "title": "Premium Coffee Machine (local)",
+    "title": "Premium Coffee Machine",
     "image": "https://m.media-amazon.com/images/I/51IZXFH6bWL._AC_SL1036_.jpg",
     "verificationQuery": {
       "circuitId": "credentialAtomicQuerySigV2",
