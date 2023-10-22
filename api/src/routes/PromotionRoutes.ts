@@ -15,12 +15,12 @@ import promotions from '../data/promotions.json';
 
 async function getAllPromotions(req: IReq, res: IRes) {
   const { storeId } = req.params;
-  const { did } = req.query;
+  // const { did } = req.query;
   return res.status(StatusCodes.OK).json(promotions.map(({ verificationQuery, ...promotion }, index) => {
     const id = uuid();
     const authRequest = auth.createAuthorizationRequest(
       promotion.title,
-      did as string,
+      "", // did as string,
       `${EnvVars.RootUrl}/stores/${storeId}/${promotion.id}/verify`,
     );
     authRequest.id = id;
@@ -32,8 +32,6 @@ async function getAllPromotions(req: IReq, res: IRes) {
         allowedIssuers: ["*"],
         context: EnvVars.PolygonId.Schema.contextUrl,
         credentialSubject: verificationQuery,
-        skipClaimRevocationCheck: true,
-        type: EnvVars.PolygonId.Schema.type,
       },
     }];
     return { ...promotion, authRequest };

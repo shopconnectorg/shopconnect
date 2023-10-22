@@ -8,18 +8,8 @@
     "title": "Premium Coffee Beans",
     "image": "https://d1uutfeu2e3s3x.cloudfront.net/images/default-source/exclusives-and-gift-detail-(1000x1000)/packed-coffee/signature-nomad/bacha-fine-flavoured-grand-moka-matari-signature-nomad-packed-whole-coffee-beans.tmb-bc00000005.jpg",
     "verificationQuery": {
-      "circuitId": "credentialAtomicQuerySigV2",
-      "id": 1697918971,
-      "query": {
-        "allowedIssuers": ["*"],
-        "context": "ipfs://QmSKwZp4NVA62ErcdvNjsyS8ffScqKEtBvAMpe6DLeMET2",
-        "credentialSubject": {
-          "item.category": {
-            "$eq": "Coffee machine"
-          }
-        },
-        "skipClaimRevocationCheck": true,
-        "type": "ShopPurchase"
+      "item.category": {
+        "$eq": "Coffee machine"
       }
     }
   },
@@ -32,18 +22,8 @@
     "title": "Nescafe Coffee Beans",
     "image": "https://m.media-amazon.com/images/I/81gW593lUFL._SL1500_.jpg",
     "verificationQuery": {
-      "circuitId": "credentialAtomicQuerySigV2",
-      "id": 1697918971,
-      "query": {
-        "allowedIssuers": ["*"],
-        "context": "ipfs://QmSKwZp4NVA62ErcdvNjsyS8ffScqKEtBvAMpe6DLeMET2",
-        "credentialSubject": {
-          "item.category": {
-            "$eq": "Coffee machine"
-          }
-        },
-        "skipClaimRevocationCheck": true,
-        "type": "ShopPurchase"
+      "item.category": {
+        "$eq": "Coffee machine"
       }
     }
   },
@@ -56,18 +36,8 @@
     "title": "Premium Coffee Machine",
     "image": "https://m.media-amazon.com/images/I/51IZXFH6bWL._AC_SL1036_.jpg",
     "verificationQuery": {
-      "circuitId": "credentialAtomicQuerySigV2",
-      "id": 1697919056,
-      "query": {
-        "allowedIssuers": ["*"],
-        "context": "ipfs://QmSKwZp4NVA62ErcdvNjsyS8ffScqKEtBvAMpe6DLeMET2",
-        "credentialSubject": {
-          "item.name": {
-            "$eq": "Storewide"
-          }
-        },
-        "skipClaimRevocationCheck": true,
-        "type": "ShopPurchase"
+      "item.name": {
+        "$eq": "Storewide"
       }
     }
   }
