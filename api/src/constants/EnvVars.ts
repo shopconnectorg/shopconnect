@@ -32,9 +32,11 @@ export default {
     circuitsPath: path.join(__dirname, '../..', process.env.CIRCUITS_PATH),
     Schema: {
       url: process.env.PURCHASE_SCHEMA_URL,
+      contextUrl: process.env.PURCHASE_SCHEMA_CONTEXT_URL,
       type: process.env.PURCHASE_SCHEMA_TYPE,
     },
     Issuer: {
+      did: process.env.POLYGONID_ISSUER_DID,
       url: process.env.POLYGONID_ISSUER_URL,
       auth: process.env.POLYGONID_ISSUER_AUTH,
     },

@@ -44,7 +44,10 @@ const storeRouter = Router();
  */
 storeRouter.get(
   Paths.Stores.Promotions.Get,
-  validate(['storeId', 'string', 'params']),
+  validate(
+    ['storeId', 'string', 'params'],
+    ['did', 'string', 'query'],
+  ),
   PromotionRoutes.getAllPromotions,
 );
 
