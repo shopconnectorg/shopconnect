@@ -9,6 +9,8 @@ import morgan from 'morgan';
 import helmet from 'helmet';
 import express, { Request, Response, NextFunction } from 'express';
 import logger from 'jet-logger';
+import { Sequelize } from 'sequelize-typescript';
+import session from 'express-session'
 
 import 'express-async-errors';
 import { StatusCodes } from 'http-status-codes';
@@ -25,9 +27,7 @@ import swaggerJSDoc from 'swagger-jsdoc';
 
 
 // **** Variables **** //
-
 const app = express();
-
 
 // **** Setup **** //
 
@@ -38,6 +38,34 @@ app.use(cookieParser(EnvVars.CookieProps.Secret));
 app.use(cors());
 dotenv.config();
 
+// Session
+// Initalize sequelize with session store
+var SequelizeStore = require('connect-session-sequelize')(session.Store);
+
+// Create database, ensure 'sqlite3' in your package.json
+var sequelize = new Sequelize({
+  dialect: 'sqlite',
+  storage: './session.sqlite',
+});
+
+var myStore = new SequelizeStore({
+  db: sequelize,
+  checkExpirationInterval: 15 * 60 * 1000, // The interval at which to cleanup expired sessions in milliseconds.
+  expiration: 72 * 60 * 60 * 1000  // The maximum age (in milliseconds) of a valid session.
+});
+
+app.use(
+  session({
+    secret: 'SECURE SESSION SECRET',
+    store: myStore,
+    resave: false,
+    proxy: true,
+  })
+);
+
+myStore.sync();
+
+// Envs
 const isDev = EnvVars.NodeEnv === NodeEnvs.Dev.valueOf();
 const isProduction = EnvVars.NodeEnv === NodeEnvs.Production.valueOf();
 const isTest = EnvVars.NodeEnv !== NodeEnvs.Test.valueOf();
