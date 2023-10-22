@@ -12,14 +12,7 @@ async function getAllPromotions(req: IReq, res: IRes) {
 };
 
 async function applyPromotion(req: IReq, res: IRes) {
-  return res.status(StatusCodes.OK).json([
-    {
-      name: 'promotion1'
-    },
-    {
-      name: 'promotion2'
-    }
-  ]);
+  console.log(req);
 };
 
 export default {

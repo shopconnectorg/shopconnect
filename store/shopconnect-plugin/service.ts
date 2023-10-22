@@ -8,6 +8,11 @@ const messageExtension = (topic: string, data: any, callback?: () => {}) => {
   }
 };
 
+const confirmPromotion = async (promotionId: number) => {
+  console.log('confirm', promotionId);
+  messageExtension('confirmPromotion', promotionId);
+}
+
 const fetchPromotions = async () => {
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}/shopconnect-plugin/promotions`
@@ -19,6 +24,7 @@ const fetchPromotions = async () => {
 };
 
 export {
+  confirmPromotion,
   fetchPromotions,
   messageExtension
 };

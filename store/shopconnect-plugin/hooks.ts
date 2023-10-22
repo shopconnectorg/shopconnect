@@ -1,11 +1,17 @@
 'use client';
 import { useEffect } from 'react';
 import { useShopConnectStore } from './sc-store';
-import { fetchPromotions } from './service';
+import { confirmPromotion, fetchPromotions } from './service';
 
 const useShopConnect = async () => {
   const listenerInitialized = useShopConnectStore((state) => state.listenerInitialized);
   const updateListenerInitialized = useShopConnectStore((state) => state.updateListenerInitialized);
+
+  const applyPromotion = async (promotionId: number) => {
+    setTimeout(async () => {
+      await confirmPromotion(promotionId);
+    }, 2000);
+  }
 
   useEffect(() => {
     if (!listenerInitialized) {
@@ -22,7 +28,7 @@ const useShopConnect = async () => {
                 await fetchPromotions();
                 break;
               case 'applyPromotion':
-                console.log('applyPromotion', data);
+                applyPromotion(data.promotionId);
             }
           }
         });
