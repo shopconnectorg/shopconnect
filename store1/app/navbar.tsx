@@ -51,7 +51,7 @@ export default () => {
           </div>
         </nav>
       </header>
-      <ShoppingCart open={cartDisplayed} setOpen={setCartDisplayed} />
+      <ShoppingCart cartDisplayed={cartDisplayed} setCartDisplayed={setCartDisplayed} />
     </div>
   )
 }

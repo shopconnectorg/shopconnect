@@ -3,7 +3,7 @@
 import { useEffect, useState, useContext } from "react";
 import { Listing, CartItem } from "@/types";
 import Link from "next/link";
-import { useCart, useLoading } from "../template";
+import { useCart } from "../template";
 import { CompletePurchase } from "@/components";
 
 export default function Page() {
@@ -12,7 +12,6 @@ export default function Page() {
   const [cartTotal, setCartTotal] = useState(0);
   const [connected, setConnected] = useState(false);
   const [purchaseComplete, setPurchaseComplete] = useState(false);
-  const setLoading = useLoading((state) => state.setLoading);
 
   useEffect(() => {
     setCart(JSON.parse(localStorage.getItem("cart") || "[]"));
@@ -46,11 +45,11 @@ export default function Page() {
   };
 
   const purchase = () => {
-    setLoading(true);
-    setInterval(() => {
-      setLoading(false);
-      setPurchaseComplete(true);
-    }, 3000);
+    // setLoading(true);
+    // setInterval(() => {
+    //   setLoading(false);
+    //   setPurchaseComplete(true);
+    // }, 3000);
   }
 
   return (
@@ -58,7 +57,7 @@ export default function Page() {
       {purchaseComplete ? (
         <CompletePurchase />
       ) : (
-        <div className="flex  justify-evenly mt-8">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex">
           <div className="w-1/2 p-6">
             <div className="flow-root border-gray-300 border-2 p-6 rounded-xl">
               <ul role="list" className="-my-6 divide-y divide-gray-200">

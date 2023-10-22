@@ -1,54 +1,26 @@
-/* eslint-disable @next/next/no-img-element */
-"use client"
-import { Fragment, useState, useContext, useEffect } from 'react'
+import { Fragment } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
-import listing from '../data/mockListings.json'
-import { Listing, CartItem } from '@/types'
-import { useCart } from "../app/template";
 import Link from 'next/link'
+import { useStore } from '@/src/store';
+import { useCartTotalPrice } from '@/src/hooks';
 
-export default function ShoppingCart({open, setOpen}: {open: boolean, setOpen: (value: boolean) => void}) {
-  const cart = useCart((state) => state.cart);
-  const setCart = useCart((state) => state.setCart)
-  const [cartTotal, setCartTotal] = useState(0);
+type ShoppingCartProps = {
+  cartDisplayed: boolean;
+  setCartDisplayed: (value: boolean) => void;
+};
 
-  useEffect(() => {
-    setCart(JSON.parse(localStorage.getItem("cart") || "[]"));
-  }, [setCart]);
+export default ({ cartDisplayed, setCartDisplayed }) => {
+  const cart = useStore((state) => state.cart);
+  const cartTotalPrice = useCartTotalPrice();
 
-  useEffect(() => {
-    let total = 0;
-    cart?.forEach((item) => {
-      total += item.price;
-    });
-    setCartTotal(total);
-  }, [cart]);
-
-
-  const removeFromCart = (e:any, id:number) => {
-    e.stopPropagation();
-
-    const itemQuantity = cart?.find(item => item.id === id)?.quantity;
-    if (itemQuantity && itemQuantity > 1) {
-      const cartItems = JSON.parse(localStorage.getItem("cart") || "[]");
-      const itemIndex = cartItems.findIndex((item: any) => item.id === id);
-      if (itemIndex !== -1) {
-        cartItems[itemIndex].quantity -= 1;
-      }
-      localStorage.setItem("cart", JSON.stringify(cartItems));
-      setCart(cartItems);
-    } else {
-      const newCart = cart?.filter(item => item.id !== id);
-      localStorage.setItem("cart", JSON.stringify(newCart));
-      setCart(newCart as CartItem[]);
-    }
-  }
-
+  const removeFromCart = (event, id) => {
+    event.stopPropagation();
+  };
 
   return (
-    <Transition.Root show={open} as={Fragment}>
-      <Dialog as="div" className="relative z-10" onClose={() => setOpen(false)}>
+    <Transition.Root show={cartDisplayed} as={Fragment}>
+      <Dialog as="div" className="relative z-10" onClose={() => setCartDisplayed(false)}>
         <Transition.Child
           as={Fragment}
           enter="ease-in-out duration-500"
@@ -82,7 +54,7 @@ export default function ShoppingCart({open, setOpen}: {open: boolean, setOpen: (
                           <button
                             type="button"
                             className="relative -m-2 p-2 text-gray-400 hover:text-gray-500"
-                            onClick={() => setOpen(false)}
+                            onClick={() => setCartDisplayed(false)}
                           >
                             <span className="absolute -inset-0.5" />
                             <span className="sr-only">Close panel</span>
@@ -94,12 +66,12 @@ export default function ShoppingCart({open, setOpen}: {open: boolean, setOpen: (
                       <div className="mt-8">
                         <div className="flow-root">
                           <ul role="list" className="-my-6 divide-y divide-gray-200"> 
-                            {cart?.map((product) => (
-                              <li key={product.id} className="flex py-6">
+                            {cart.items.map((cartItem) => (
+                              <li key={cartItem.item.id} className="flex py-6">
                                 <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                                   <img
-                                    src={product.image}
-                                    alt={product.name}
+                                    src={cartItem.item.image}
+                                    alt={cartItem.item.name}
                                     className="h-full w-full object-cover object-center"
                                   />
                                 </div>
@@ -108,20 +80,20 @@ export default function ShoppingCart({open, setOpen}: {open: boolean, setOpen: (
                                   <div>
                                     <div className="flex justify-between text-base font-medium text-gray-900">
                                       <h3>
-                                        <a href={product.name}>{product.name}</a>
+                                        <a href={cartItem.item.name}>{cartItem.item.name}</a>
                                       </h3>
-                                      <p className="ml-4">{product.price}</p>
+                                      <p className="ml-4">{cartItem.item.price}</p>
                                     </div>
-                                    <p className="mt-1 text-sm text-gray-500">{product.name}</p>
+                                    <p className="mt-1 text-sm text-gray-500">{cartItem.item.name}</p>
                                   </div>
                                   <div className="flex flex-1 items-end justify-between text-sm">
-                                    <p className="text-gray-500">Qantity: {product.quantity}</p>
+                                    <p className="text-gray-500">Quantity: {cartItem.quantity}</p>
 
                                     <div className="flex">
                                       <button
                                         type="button"
                                         className="font-medium text-indigo-600 hover:text-indigo-500"
-                                        onClick={(e)=>removeFromCart(e, product.id)}
+                                        onClick={(event) => { removeFromCart(event, cartItem.item.id) }}
                                       >
                                         Remove
                                       </button>
@@ -138,7 +110,7 @@ export default function ShoppingCart({open, setOpen}: {open: boolean, setOpen: (
                     <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
                       <div className="flex justify-between text-base font-medium text-gray-900">
                         <p>Subtotal</p>
-                        <p>${cartTotal}</p>
+                        <p>${cartTotalPrice}</p>
                       </div>
                       <p className="mt-0.5 text-sm text-gray-500">Shipping and taxes calculated at checkout.</p>
                       <div className="mt-6">
@@ -155,7 +127,7 @@ export default function ShoppingCart({open, setOpen}: {open: boolean, setOpen: (
                           <button
                             type="button"
                             className="font-medium text-indigo-600 hover:text-indigo-500"
-                            onClick={() => setOpen(false)}
+                            onClick={() => setCartDisplayed(false)}
                           >
                             Continue Shopping
                             <span aria-hidden="true"> &rarr;</span>
