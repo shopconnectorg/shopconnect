@@ -29,27 +29,34 @@ export default {
   PolygonId: {
     rhsUrl: process.env.RHS_URL,
     ipfsUrl: process.env.IPFS_URL,
-    walletKey: process.env.WALLET_KEY,
     circuitsPath: path.join(__dirname, '../..', process.env.CIRCUITS_PATH),
-    schema: {
-      type: 'ShopPurchase',
+    Schema: {
       url: process.env.PURCHASE_SCHEMA_URL,
+      contextUrl: process.env.PURCHASE_SCHEMA_CONTEXT_URL,
+      type: process.env.PURCHASE_SCHEMA_TYPE,
     },
-    polygon: process.env.POLYGON_RPC_URL && {
-      rpcUrl: process.env.POLYGON_RPC_URL,
-      contract: process.env.POLYGON_CONTRACT_ADDRESS,
+    Issuer: {
+      did: process.env.POLYGONID_ISSUER_DID,
+      url: process.env.POLYGONID_ISSUER_URL,
+      auth: process.env.POLYGONID_ISSUER_AUTH,
     },
-    zkEvm: process.env.ZKEVM_RPC_URL && {
-      rpcUrl: process.env.ZKEVM_RPC_URL,
-      contract: process.env.ZKEVM_CONTRACT_ADDRESS,
-    },
-    scroll: process.env.SCROLL_RPC_URL && {
-      rpcUrl: process.env.SCROLL_RPC_URL,
-      contract: process.env.SCROLL_CONTRACT_ADDRESS,
-    },
-    mantle: process.env.MANTLE_RPC_URL && {
-      rpcUrl: process.env.MANTLE_RPC_URL,
-      contract: process.env.MANTLE_CONTRACT_ADDRESS,
+    Chain: {
+      Polygon: process.env.POLYGON_RPC_URL && {
+        rpcUrl: process.env.POLYGON_RPC_URL,
+        contract: process.env.POLYGON_CONTRACT_ADDRESS,
+      },
+      ZkEvm: process.env.ZKEVM_RPC_URL && {
+        rpcUrl: process.env.ZKEVM_RPC_URL,
+        contract: process.env.ZKEVM_CONTRACT_ADDRESS,
+      },
+      Scroll: process.env.SCROLL_RPC_URL && {
+        rpcUrl: process.env.SCROLL_RPC_URL,
+        contract: process.env.SCROLL_CONTRACT_ADDRESS,
+      },
+      Mantle: process.env.MANTLE_RPC_URL && {
+        rpcUrl: process.env.MANTLE_RPC_URL,
+        contract: process.env.MANTLE_CONTRACT_ADDRESS,
+      }
     },
   },
 } as const;
