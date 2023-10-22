@@ -6,7 +6,9 @@ import path from "path";
 
 export default {
   NodeEnv: (process.env.NODE_ENV ?? ''),
+  Host: (process.env.HOST ?? 'localhost'),
   Port: (process.env.PORT ?? 0),
+  RootUrl: process.env.ROOT_URL,
   CookieProps: {
     Key: 'ExpressGeneratorTs',
     Secret: (process.env.COOKIE_SECRET ?? ''),

@@ -1,3 +1,4 @@
+import once from 'lodash/once';
 import { proving } from "@iden3/js-jwz";
 import { auth, resolver } from "@iden3/js-iden3-auth";
 import {
@@ -192,6 +193,11 @@ export async function initIssuer() {
   const issuer = await createIdentity(identityWallet);
   return { dataStorage, credentialWallet, identityWallet, circuitStorage, proofService, issuer };
 }
+
+export const initIssuerOnce = once(async function() {
+  const { dataStorage, credentialWallet, identityWallet, proofService, issuer } = await initIssuer();
+  return { dataStorage, credentialWallet,identityWallet, proofService, issuer };
+});
 
 export async function initVerifier() {
   const resolvers: resolver.Resolvers = {

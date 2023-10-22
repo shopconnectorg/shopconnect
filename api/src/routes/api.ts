@@ -3,12 +3,13 @@ import jetValidator from 'jet-validator';
 
 import Paths from '../constants/Paths';
 import PromotionRoutes from './PromotionRoutes';
-
+import IdentityRoutes from './IdentityRoutes';
 
 const apiRouter = Router(),
   validate = jetValidator();
 
 const storeRouter = Router();
+const identityRouter = Router();
 
   /**
    * @swagger
@@ -101,6 +102,15 @@ storeRouter.post(
   PromotionRoutes.verifyProof
 );
 
+identityRouter.post(
+  Paths.Identity.ConfirmCredentials.Post,
+  validate(
+    ['credentialId', 'string', 'params'],
+  ),
+  IdentityRoutes.confirmCredential,
+);
+
 apiRouter.use('/stores', storeRouter);
+apiRouter.use('/identity', identityRouter);
 
 export default apiRouter;

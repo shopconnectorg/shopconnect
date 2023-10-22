@@ -1,6 +1,5 @@
 import { StatusCodes } from 'http-status-codes';
 import { ethers } from 'ethers';
-import once from 'lodash/once';
 import { auth } from '@iden3/js-iden3-auth';
 import {
   EthStateStorage,
@@ -11,13 +10,8 @@ import {
   core
 } from '@0xpolygonid/js-sdk';
 import EnvVars from '../constants/EnvVars';
-import { initIssuer, initVerifier } from '../lib/init';
+import { initIssuerOnce, initVerifier } from '../lib/init';
 import { IReq, IRes } from './types/express/requests';
-
-const initIssuerOnce = once(async function() {
-  const { dataStorage, identityWallet, proofService, issuer } = await initIssuer();
-  return { dataStorage, identityWallet, proofService, issuer };
-});
 
 async function getAllPromotions(req: IReq, res: IRes) {
   return res.status(StatusCodes.OK).json([
@@ -33,7 +27,7 @@ async function getAllPromotions(req: IReq, res: IRes) {
 async function issueCredential(req: IReq, res: IRes) {
   //TODO: Get this from request body
   const userDID =
-  'did:polygonid:polygon:mumbai:2qMZLv6ZwBFowmtSLFkugxkkfxUAzq8S6t1KpjDUXN';
+  'did:polygonid:polygon:mumbai:2qEi8PHEzp3KbByus9ozh1up9HwMuPi1t9oLErxGLU';
   const { dataStorage, identityWallet, proofService, issuer } = await initIssuerOnce();
   const issueRequest: CredentialRequest = {
     credentialSchema: EnvVars.PolygonId.schema.url,
@@ -73,7 +67,6 @@ async function issueCredential(req: IReq, res: IRes) {
     (dataStorage.states as EthStateStorage).provider
   );
   const { isStateGenesis } = await dataStorage.identity.getIdentity(issuer.did.string());
-  
   const newStateHash = await proofService.transitState(
     issuer.did,
     oldTreeState,
@@ -84,6 +77,19 @@ async function issueCredential(req: IReq, res: IRes) {
   // At this stage, the VC has already been issued and could be verified on chain
   return res.status(StatusCodes.OK).json({
     state: newStateHash,
+    message: {
+      typ: 'application/iden3comm-plain-json',
+      type: 'https://iden3-communication.io/credentials/1.0/offer',
+      body: {
+        url: `${EnvVars.RootUrl}/identity/credentials/confirm/${credential.id}`,
+        credentials: [{
+          id: credential.id.substr(4),
+          description: EnvVars.PolygonId.schema.type,
+        }],
+      },
+      from: issuer.did.string(),
+      to: userDID,
+    },
   });
 }
 

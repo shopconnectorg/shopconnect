@@ -17,5 +17,10 @@ export default {
       Post: '/:storeId/:promotionId/verify',
     },
   },
-
+  Identity: {
+    Base: '/identity',
+    ConfirmCredentials: {
+      Post: '/credentials/:credentialId/confirm'
+    },
+  },
 } as const;
