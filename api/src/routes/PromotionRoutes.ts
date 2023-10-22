@@ -12,16 +12,10 @@ import {
 import EnvVars from '../constants/EnvVars';
 import { initIssuerOnce, initVerifier } from '../lib/init';
 import { IReq, IRes } from './types/express/requests';
+import promotions from '../data/promotions.json';
 
 async function getAllPromotions(req: IReq, res: IRes) {
-  return res.status(StatusCodes.OK).json([
-    {
-      name: 'promotion1'
-    },
-    {
-      name: 'promotion2'
-    }
-  ]);
+  return res.status(StatusCodes.OK).json(promotions);
 };
 
 async function issueCredential(req: IReq, res: IRes) {

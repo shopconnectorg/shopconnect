@@ -9,8 +9,6 @@ import morgan from 'morgan';
 import helmet from 'helmet';
 import express, { Request, Response, NextFunction } from 'express';
 import logger from 'jet-logger';
-import { Sequelize } from 'sequelize-typescript';
-import session from 'express-session'
 
 import 'express-async-errors';
 import { StatusCodes } from 'http-status-codes';
@@ -24,6 +22,7 @@ import { NodeEnvs } from '@src/constants/misc';
 import { RouteError } from '@src/other/classes';
 import swaggerUi from 'swagger-ui-express';
 import swaggerJSDoc from 'swagger-jsdoc';
+import { sequelize } from './models';
 
 
 // **** Variables **** //
@@ -37,33 +36,6 @@ app.use(express.urlencoded({extended: true}));
 app.use(cookieParser(EnvVars.CookieProps.Secret));
 app.use(cors());
 dotenv.config();
-
-// Session
-// Initalize sequelize with session store
-var SequelizeStore = require('connect-session-sequelize')(session.Store);
-
-// Create database, ensure 'sqlite3' in your package.json
-var sequelize = new Sequelize({
-  dialect: 'sqlite',
-  storage: './session.sqlite',
-});
-
-var myStore = new SequelizeStore({
-  db: sequelize,
-  checkExpirationInterval: 15 * 60 * 1000, // The interval at which to cleanup expired sessions in milliseconds.
-  expiration: 72 * 60 * 60 * 1000  // The maximum age (in milliseconds) of a valid session.
-});
-
-app.use(
-  session({
-    secret: 'SECURE SESSION SECRET',
-    store: myStore,
-    resave: false,
-    proxy: true,
-  })
-);
-
-myStore.sync();
 
 // Envs
 const isDev = EnvVars.NodeEnv === NodeEnvs.Dev.valueOf();
@@ -79,6 +51,9 @@ if (isDev) {
 if (isProduction) {
   app.use(helmet());
 }
+
+// DB
+sequelize.sync();
 
 // Add APIs, must be after middleware
 app.use(Paths.Base, BaseRouter);

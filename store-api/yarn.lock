@@ -1219,17 +1219,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"connect-session-sequelize@npm:^7.1.7":
-  version: 7.1.7
-  resolution: "connect-session-sequelize@npm:7.1.7"
-  dependencies:
-    debug: ^4.1.1
-  peerDependencies:
-    sequelize: ">= 6.1.0"
-  checksum: 10617554c211bb8fc7f85ec76f079fe755fbe321189a7d05e10171bac70f0a4511239a4fdc37261d5d5353bd9e4b00a11392b6d95bd388885c32444575a31e58
-  languageName: node
-  linkType: hard
-
 "console-control-strings@npm:^1.0.0, console-control-strings@npm:^1.1.0":
   version: 1.1.0
   resolution: "console-control-strings@npm:1.1.0"
@@ -1274,13 +1263,6 @@ __metadata:
   version: 0.4.1
   resolution: "cookie@npm:0.4.1"
   checksum: bd7c47f5d94ab70ccdfe8210cde7d725880d2fcda06d8e375afbdd82de0c8d3b73541996e9ce57d35f67f672c4ee6d60208adec06b3c5fc94cebb85196084cf8
-  languageName: node
-  linkType: hard
-
-"cookie@npm:0.4.2":
-  version: 0.4.2
-  resolution: "cookie@npm:0.4.2"
-  checksum: a00833c998bedf8e787b4c342defe5fa419abd96b32f4464f718b91022586b8f1bafbddd499288e75c037642493c83083da426c6a9080d309e3bd90fd11baa9b
   languageName: node
   linkType: hard
 
@@ -1704,22 +1686,6 @@ __metadata:
   peerDependencies:
     express: ^4.16.2
   checksum: 3a2a6df8ea957185df401a239189d617715c38fba13fac8ced7750b25fa95b0ae656e5d1385d12d0e4dcd7997e90d070b218e86abcf8e68bb6048830b53ba668
-  languageName: node
-  linkType: hard
-
-"express-session@npm:^1.17.3":
-  version: 1.17.3
-  resolution: "express-session@npm:1.17.3"
-  dependencies:
-    cookie: 0.4.2
-    cookie-signature: 1.0.6
-    debug: 2.6.9
-    depd: ~2.0.0
-    on-headers: ~1.0.2
-    parseurl: ~1.3.3
-    safe-buffer: 5.2.1
-    uid-safe: ~2.1.5
-  checksum: 1021a793433cbc6a1b32c803fcb2daa1e03a8f50dd907e8745ae57994370315a5cfde5b6ef7b062d9a9a0754ff268844bda211c08240b3a0e01014dcf1073ec5
   languageName: node
   linkType: hard
 
@@ -3393,13 +3359,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"random-bytes@npm:~1.0.0":
-  version: 1.0.0
-  resolution: "random-bytes@npm:1.0.0"
-  checksum: 09faa256394aa2ca9754aa57e92a27c452c3e97ffb266e98bebb517332e9df7168fea393159f88d884febce949ba8bec8ddb02f03342da6c6023ecc7b155e0ae
-  languageName: node
-  linkType: hard
-
 "range-parser@npm:~1.2.1":
   version: 1.2.1
   resolution: "range-parser@npm:1.2.1"
@@ -3847,7 +3806,6 @@ __metadata:
     "@types/swagger-ui-express": ^4.1.4
     "@typescript-eslint/eslint-plugin": ^6.7.5
     "@typescript-eslint/parser": ^6.7.5
-    connect-session-sequelize: ^7.1.7
     cookie-parser: ^1.4.6
     cors: ^2.8.5
     dotenv: ^16.3.1
@@ -3855,7 +3813,6 @@ __metadata:
     eslint-plugin-node: ^11.1.0
     express: ^4.18.2
     express-async-errors: ^3.1.1
-    express-session: ^1.17.3
     find: ^0.3.0
     fs-extra: ^11.1.1
     helmet: ^7.0.0
@@ -4259,15 +4216,6 @@ __metadata:
   version: 5.2.0
   resolution: "typical@npm:5.2.0"
   checksum: ccaeb151a9a556291b495571ca44c4660f736fb49c29314bbf773c90fad92e9485d3cc2b074c933866c1595abbbc962f2b8bfc6e0f52a8c6b0cdd205442036ac
-  languageName: node
-  linkType: hard
-
-"uid-safe@npm:~2.1.5":
-  version: 2.1.5
-  resolution: "uid-safe@npm:2.1.5"
-  dependencies:
-    random-bytes: ~1.0.0
-  checksum: 07536043da9a026f4a2bc397543d0ace7587449afa1d9d2c4fd3ce76af8a5263a678788bcc429dff499ef29d45843cd5ee9d05434450fcfc19cc661229f703d1
   languageName: node
   linkType: hard
 
