@@ -2,8 +2,10 @@ import { StatusCodes } from 'http-status-codes';
 import { IReq, IRes } from '../routes/types/express/requests';
 
 async function getAllPromotions(req: IReq, res: IRes) {
+  const { did } = req.query;
+
   const response = await fetch(
-    `${process.env.SHOPCONNECT_API_URL}/stores/asd/promotions`
+    `${process.env.SHOPCONNECT_API_URL}/stores/asd/promotions?did={did}`
   );
 
   const promotions = await response.json();
