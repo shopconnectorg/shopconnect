@@ -36,7 +36,6 @@ export default {
       type: process.env.PURCHASE_SCHEMA_TYPE,
     },
     Issuer: {
-      did: process.env.POLYGONID_ISSUER_DID,
       url: process.env.POLYGONID_ISSUER_URL,
       auth: process.env.POLYGONID_ISSUER_AUTH,
     },

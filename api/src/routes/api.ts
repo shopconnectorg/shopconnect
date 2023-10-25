@@ -53,7 +53,7 @@ storeRouter.get(
 
 /**
  * @swagger
- * /stores/{storeId}/{promotionId}/issue:
+ * /stores/{storeId}/issue:
  *   post:
  *     description: Issue Polygon ID credential for purchase
  *     parameters:

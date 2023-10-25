@@ -23,8 +23,38 @@ const fetchPromotions = async () => {
   messageExtension('loadPromotions', promotionsData);
 };
 
+// @ts-ignore
+const confirmPurchase = async (userDID, item, qty, price) => {
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/shopconnect-plugin/purchases?did=${userDID}`, {
+      method: 'post',
+      body: JSON.stringify({
+        id: userDID,
+        qty,
+        price,
+        item: {
+          name: item.name,
+          category: item.category,
+          brand: item.brand,
+          image: item.image,
+        },
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }
+  );
+  if (response.status >= 200 && response.status < 300) {
+    return await response.json();
+  } else {
+    const { message } = await response.json();
+    throw new Error(message);
+  }
+};
+
 export {
   confirmPromotion,
   fetchPromotions,
-  messageExtension
+  messageExtension,
+  confirmPurchase,
 };

@@ -66,5 +66,11 @@ export function registerPluginRoutes(apiRouter: Router) {
     handlers.applyPromotion
   );
 
+  scpluginRouter.post(
+    Paths.ShopConnect.Purchases.Post,
+    validate(['did', 'string', 'query']),
+    handlers.confirmPurchase,
+  );
+
   apiRouter.use('/shopconnect-plugin', scpluginRouter);
 }

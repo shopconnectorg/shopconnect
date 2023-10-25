@@ -8,6 +8,7 @@ const useShopConnect = async () => {
   const listenerInitialized = useShopConnectStore((state) => state.listenerInitialized);
   const updateListenerInitialized = useShopConnectStore((state) => state.updateListenerInitialized);
   const addDiscount = useStore((state) => state.addDiscount);
+  const setUserDID = useStore((state) => state.setUserDID);
 
   const applyPromotion = async (promotionId: number) => {
     setTimeout(async () => {
@@ -25,8 +26,10 @@ const useShopConnect = async () => {
           if (event.data.action == 'extensionToSCPlugin') {
             console.log(event.data);
             const { payload: { topic, data } } = event.data;
-
             switch (topic) {
+              case 'ready':
+                setUserDID(data.did);
+                break;
               case 'fetchPromotions':
                 await fetchPromotions();
                 break;

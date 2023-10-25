@@ -3,8 +3,25 @@ import { useState } from 'react';
 import { useCartTotalPrice } from '@/src/hooks';
 import { useStore } from "@/src/store";
 
-export default function CompletePurchase() {
+// @ts-ignore
+export default function CompletePurchase({ credentialRequest }) {
   const [claimed, setClaimed] = useState(false);
+  const [error, setError] = useState('');
+
+  async function storeCredential() {
+    setError('');
+    try {
+      const data = btoa(JSON.stringify(credentialRequest));
+      const event = new CustomEvent('authEvent', { detail: `iden3comm://?i_m=${data}` });
+      //TODO: Maybe trigger loading animation?
+      document.dispatchEvent(event);
+      //TODO: Maybe wait for credential to be actually stored?
+      setClaimed(true);
+    } catch (err) {
+      // @ts-ignore
+      setError(err.message);
+    }
+  }
 
   return (
     <div className="flex justify-center mt-6 pb-6">
@@ -21,10 +38,11 @@ export default function CompletePurchase() {
 
         <div className="flex items-start flex-col w-full">
           <h2><b>Claim your ShopConnect proof of purchase!</b></h2><br /><br />
+          {error && <div style={{ color: 'red' }}>Error: {error}</div>}
           {claimed ? (
             <p><b>Your proof of purchase has been saved in your ShopConnect wallet!</b></p>
           ):  (
-            <button className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700" onClick={()=>setClaimed(true)}>
+            <button className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700" onClick={storeCredential}>
               Claim ⚡
             </button>
           )}

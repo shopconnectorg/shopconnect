@@ -41,13 +41,13 @@ async function getAllPromotions(req: IReq, res: IRes) {
 };
 
 async function issueCredential(req: IReq<JSONObject>, res: IRes) {
-  const { userDID, purchase } = req.body;
+  const { did: userDID } = req.query;
   const requestBody = {
     credentialSchema: EnvVars.PolygonId.Schema.url,
     type: EnvVars.PolygonId.Schema.type,
     credentialSubject: {
       id: userDID,
-      ...(purchase as Object),
+      ...req.body,
     },
     revocationOpts: {
       type: CredentialStatusType.Iden3ReverseSparseMerkleTreeProof,

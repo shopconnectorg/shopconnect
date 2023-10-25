@@ -7,13 +7,15 @@ import { Cart, Discount, Item } from './types';
 type Store = {
   cart: Cart,
   cartDisplayed: boolean,
-  discounts: Discount[]
+  discounts: Discount[],
+  userDID: string,
 };
 
 type StoreActions = {
   addToCart: (item: Item) => void,
   addDiscount: (discount: Discount) => void,
   setCartDisplayed: (value: boolean) => void
+  setUserDID: (value: string) => void,
 }
 
 const useStore = create<Store & StoreActions>()(
@@ -24,6 +26,7 @@ const useStore = create<Store & StoreActions>()(
         cart: { items: [] },
         cartDisplayed: false,
         discounts: [],
+        userDID: '',
         // Actions
         addToCart: (item) => set(() => {
           const cart = get().cart
@@ -59,7 +62,8 @@ const useStore = create<Store & StoreActions>()(
             discounts: [...discounts, discount]
           }
         }),
-        setCartDisplayed: (value) => set(() => ({ cartDisplayed: value }))
+        setCartDisplayed: (value) => set(() => ({ cartDisplayed: value })),
+        setUserDID: (value) => set(() => ({ userDID: value })),
       }),
       {
         name: 'store-state',

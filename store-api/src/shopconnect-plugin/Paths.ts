@@ -3,10 +3,13 @@
  */
 export default {
   ShopConnect: {
-    Base: '/shopconnect-plugin/',
+    Base: '/shopconnect-plugin',
     Promotions: {
       Get: '/promotions',
       ApplyPromotion: '/:promotionId/apply'
-    }
+    },
+    Purchases: {
+      Post: '/purchases'
+    },
   }
 } as const;

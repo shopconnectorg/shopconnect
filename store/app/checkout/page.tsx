@@ -6,14 +6,16 @@ import Link from "next/link";
 import { useCartTotalPrice } from '@/src/hooks';
 import { CompletePurchase } from "@/components";
 import { useStore } from "@/src/store";
+import { confirmPurchase } from '@/shopconnect-plugin/service';
 
 export default function Page() {
   const [connected, setConnected] = useState(false);
-
+  const [error, setError] = useState('');
   const cart = useStore((store) => store.cart)
   const cartTotalPrice = useCartTotalPrice();
   const discounts = useStore((state) => state.discounts);
-  const [purchaseComplete, setPurchaseComplete] = useState(false);
+  const userDID = useStore((state) => state.userDID);
+  const [credentialRequest, setCredentialRequest] = useState(null);
 
   const removeFromCart = (e: any, id: number) => {
     e.stopPropagation();
@@ -34,8 +36,10 @@ export default function Page() {
     // }
   };
 
-  const purchase = () => {
-    setPurchaseComplete(true);
+  function applyDiscountToItem(item) {
+    const discountItem = discounts.find((discount) => discount.itemId === item.id);
+    const discount = discountItem ? discountItem.percentage / 100 : 0;
+    return (1 - discount) * item.price;
   }
 
   const itemPrice = (item) => {
@@ -53,10 +57,25 @@ export default function Page() {
     )
   }
 
+  const purchase = async () => {
+    setError('');
+    try {
+      //FIXME: Currently only one cart item is supported
+      const [{ quantity, item }] = cart.items;
+      const price = applyDiscountToItem(item);
+      //TODO: Maybe trigger loading animation?
+      const data = await confirmPurchase(userDID, item, quantity, price);
+      setCredentialRequest(data);
+    } catch (err) {
+      // @ts-ignore
+      setError(err.message);
+    }
+  }
+
   return (
     <>
-      {purchaseComplete ? (
-        <CompletePurchase />
+      {credentialRequest ? (
+        <CompletePurchase credentialRequest={credentialRequest} />
       ) : (
         <div className="gx tv ari asq aus cfc cxj ddh">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex">
@@ -160,6 +179,8 @@ export default function Page() {
                     </div>
                   </li>
                   <li className="flex py-6 flex-col">
+                    <div>DID: {userDID}</div>
+                    {error && <div style={{ color: 'red' }}>Error: {error}</div>}
                     <button className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700" onClick={()=>purchase()}>
                       Complete purchase
                     </button>
