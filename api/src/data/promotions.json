@@ -22,5 +22,53 @@
         "type": "ShopPurchase"
       }
     }
+  },
+  {
+    "id": 2,
+    "discount": 10,
+    "discountType": "percentage",
+    "expiry": 1698796800,
+    "requirement": "> $50 spent on \"budget\" coffee machines.",
+    "title": "Nescafe Coffee Beans",
+    "image": "https://m.media-amazon.com/images/I/81gW593lUFL._SL1500_.jpg",
+    "verificationQuery": {
+      "circuitId": "credentialAtomicQuerySigV2",
+      "id": 1697918971,
+      "query": {
+        "allowedIssuers": ["*"],
+        "context": "ipfs://QmSKwZp4NVA62ErcdvNjsyS8ffScqKEtBvAMpe6DLeMET2",
+        "credentialSubject": {
+          "item.category": {
+            "$eq": "Coffee machine"
+          }
+        },
+        "skipClaimRevocationCheck": true,
+        "type": "ShopPurchase"
+      }
+    }
+  },
+  {
+    "id": 3,
+    "discount": 20,
+    "discountType": "amount",
+    "expiry": 1698102000,
+    "requirement": "Recurring customer discount.",
+    "title": "Premium Coffee Machine",
+    "image": "https://m.media-amazon.com/images/I/51IZXFH6bWL._AC_SL1036_.jpg",
+    "verificationQuery": {
+      "circuitId": "credentialAtomicQuerySigV2",
+      "id": 1697919056,
+      "query": {
+        "allowedIssuers": ["*"],
+        "context": "ipfs://QmSKwZp4NVA62ErcdvNjsyS8ffScqKEtBvAMpe6DLeMET2",
+        "credentialSubject": {
+          "item.name": {
+            "$eq": "Storewide"
+          }
+        },
+        "skipClaimRevocationCheck": true,
+        "type": "ShopPurchase"
+      }
+    }
   }
 ]
