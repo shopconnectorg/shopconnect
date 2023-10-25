@@ -25,4 +25,7 @@ export default {
     Secret: (process.env.JWT_SECRET ??  ''),
     Exp: (process.env.COOKIE_EXP ?? ''), // exp at the same time as the cookie
   },
+  ShopConnect: {
+    apiUrl: process.env.SHOPCONNECT_API_URL,
+  },
 } as const;
