@@ -24,14 +24,14 @@ export default function Page() {
     const promotion = computeItemPromotion(promotions, item);
 
     return (
-      <Fragment>
-        <p className={`ml-4${promotion.unitDiscount > 0 && ' line-through'}`}>{item.price}</p>
-        {promotion.unitDiscount > 0 && (
-          <p className="mt-1 text-lg font-medium text-red-500">
-            {promotion.finalUnitPrice}
-          </p>
-        )}
-      </Fragment>
+        <div className="flex flex-row items-center gap-2 justify-end">
+          <p className={`ml-4 text-lg font-medium${promotion.unitDiscount > 0 && ' line-through'}`}>${item.price}</p>
+          {promotion.unitDiscount > 0 && (
+            <p className="text-lg font-medium text-red-500">
+              ${promotion.finalUnitPrice}
+            </p>
+          )}
+        </div>
     )
   }
 

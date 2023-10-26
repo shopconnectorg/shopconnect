@@ -6,7 +6,7 @@ import { useStore } from '../../../src/store';
 import { Item } from '@/src/types';
 import { computeItemPromotion } from '@/src/utils';
 
-export default function Page({params} : {params: {id: string}}) {
+export default function DetailPage({params} : {params: {id: string}}) {
   const addToCart = useStore((state) => state.addToCart);
   const itemData = items.find(item => item.id === Number(params.id));
   const promotions = useStore((state) => state.promotions);
@@ -15,9 +15,11 @@ export default function Page({params} : {params: {id: string}}) {
 
   return (
     <div className="hero">
-      <div className="hero-content items-start flex-row h-full" style={{maxHeight:"80%"}}>
-        <img src={itemData.image} className="h-full rounded-lg shadow-2xl" />
-        <div className="flex justify-between flex-col h-full">
+      <div className="hero-content items-start flex-row h-full mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 gap-20">
+        <div className="w-1/2">
+          <img src={itemData.image} className="h-full w-full object-cover object-center" />
+        </div>
+        <div className="flex justify-between flex-col h-full w-1/2">
           <div>
             <h1 className="text-5xl font-bold">{itemData.name}</h1>
             <p className="py-4">

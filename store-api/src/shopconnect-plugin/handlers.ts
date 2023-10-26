@@ -5,7 +5,7 @@ async function getAllPromotions(req: IReq, res: IRes) {
   const { did } = req.query;
 
   const response = await fetch(
-    `${process.env.SHOPCONNECT_API_URL}/stores/asd/promotions?did=${did}`
+    `${process.env.SHOPCONNECT_API_URL}/stores/${process.env.SHOPCONNECT_STORE_ID}/promotions?did=${did}`
   );
 
   const promotions = await response.json();
@@ -31,7 +31,7 @@ async function applyPromotion(req: IReq, res: IRes) {
 async function confirmPurchase(req: IReq, res: IRes) {
   const { did } = req.query;
   const response = await fetch(
-    `${process.env.SHOPCONNECT_API_URL}/stores/asd/issue?did=${did}`, {
+    `${process.env.SHOPCONNECT_API_URL}/stores/${process.env.SHOPCONNECT_STORE_ID}/issue?did=${did}`, {
       method: 'POST',
       body: JSON.stringify(req.body),
       headers: {

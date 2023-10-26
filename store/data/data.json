@@ -1,5 +1,8 @@
 {
   "store1": {
+    "config": {
+      "logo": "/images/store1.svg"
+    },
     "items": [
       {
         "id": 1,
@@ -70,6 +73,9 @@
     ]
   },
   "store2": {
+    "config": {
+      "logo": "/images/store2.svg"
+    },
     "items": [
       {
         "id": 1,

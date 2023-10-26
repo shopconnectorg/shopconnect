@@ -38,7 +38,7 @@ export default function Card({ item }: CardProps) {
             : 
             <p className="mt-1 text-lg font-medium">${price}</p>
         }
-        <button className="btn btn-xs" onClick={(e)=>{ e.preventDefault(); addToCart(item); }}>Add to Cart</button>
+        {/*<button className="btn btn-xs" onClick={(e)=>{ e.preventDefault(); addToCart(item); }}>Add to Cart</button>*/}
       </div>  
     </Link>
   )
