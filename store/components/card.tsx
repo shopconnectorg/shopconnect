@@ -32,9 +32,8 @@ export default function Card({ item }: CardProps) {
             <div>
               <div className="flex flex-row gap-2">
                 <p className="mt-1 text-lg font-medium line-through">${price}</p>
-                <p className="mt-1 text-lg font-medium text-red-500">-{promotion.discount * 100}%</p>
+                <p className="mt-1 text-lg font-medium text-red-500">${finalUnitPrice}</p>
               </div>
-              <p className="mt-1 text-lg font-medium">{finalUnitPrice.toFixed(2)}</p> 
             </div>
             : 
             <p className="mt-1 text-lg font-medium">${price}</p>

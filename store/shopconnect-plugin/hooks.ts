@@ -1,25 +1,32 @@
 'use client';
 import { useEffect } from 'react';
+import { useShallow } from 'zustand/react/shallow'
 import { useShopConnectStore } from './sc-store';
 import { confirmPromotion, fetchPromotions } from './service';
 import { useStore } from '@/src/store';
 
 const useShopConnect = async () => {
   const listenerInitialized = useShopConnectStore((state) => state.listenerInitialized);
-  const { promotions, updateListenerInitialized, savePromotions, setUserDID } = useShopConnectStore((state) => state);
+  const { updateListenerInitialized, savePromotions, setUserDID } = useShopConnectStore(
+    (state) => ({
+      updateListenerInitialized: state.updateListenerInitialized,
+      savePromotions: state.savePromotions,
+      setUserDID: state.setUserDID
+    })
+  );
   const { addPromotion } = useStore((state) => state);
 
   const applyPromotion = async (promotionId: number) => {
-    // setTimeout(async () => {
-      const promotion = promotions.find(promo => promo.id === promotionId);
-      console.log(promotions);
-      if (promotion) {
-        await confirmPromotion(promotionId);
-        addPromotion(promotion);
-      } else {
-        console.error('Promotion not found by ID', promotionId);
-      }
-    // }, 2000);
+    const currentPromotions = useShopConnectStore.getState().promotions // Fetch latest version from state
+    const promotion = currentPromotions.find(promo => promo.id === promotionId);
+
+    if (promotion) {
+      console.log(`Applying promotion #${promotion.id}`)
+      await confirmPromotion(promotionId);
+      addPromotion(promotion);
+    } else {
+      console.error('Promotion not found by ID', promotionId);
+    }
   }
 
   useEffect(() => {
@@ -29,18 +36,17 @@ const useShopConnect = async () => {
         // Listen from messages coming from content_script.js
         window.addEventListener('message', async (event) => {
           if (event.data.action == 'extensionToSCPlugin') {
-            console.log(event.data);
             const { payload: { topic, data } } = event.data;
             switch (topic) {
               case 'fetchPromotions': {
                 setUserDID(data.did);
-                const promotions = await fetchPromotions(data.did);
-                console.log('savePromotions', promotions);
-                savePromotions(promotions);
+                const receivedPromotions = await fetchPromotions(data.did);
+                savePromotions(receivedPromotions);
                 break;
               }
               case 'applyPromotion':
-                applyPromotion(data.promotionId);
+                await applyPromotion(data.promotionId);
+                break;
             }
           }
         });

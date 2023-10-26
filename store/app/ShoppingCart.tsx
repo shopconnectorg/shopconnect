@@ -2,6 +2,7 @@ import { Fragment } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
 import Link from 'next/link'
+import { computeItemPromotion } from '@/src/utils';
 import { useStore } from '@/src/store';
 import { useCart } from '@/src/hooks';
 
@@ -12,18 +13,21 @@ type ShoppingCartProps = {
 
 export default ({ cartDisplayed, setCartDisplayed }) => {
   const cart = useCart();
+  const promotions = useStore((state) => state.promotions);
 
   const removeFromCart = (event, id) => {
     event.stopPropagation();
   };
 
   const itemPrice = (item) => {
+    const { finalUnitPrice, unitDiscount } = computeItemPromotion(promotions, item);
+
     return (
       <Fragment>
-        <p className={`ml-4${item.unitDiscount > 0 && ' line-through'}`}>{item.price}</p>
-        {item.unitDiscount > 0 && (
-          <p className="mt-1 text-lg font-medium text-red-500">
-            {item.finalUnitPrice}
+        <p className={`ml-4 text-lg font-medium${unitDiscount > 0 && ' line-through'}`}>${item.price}</p>
+        {unitDiscount > 0 && (
+          <p className="ml-1 text-lg font-medium text-red-500">
+            ${finalUnitPrice}
           </p>
         )}
       </Fragment>

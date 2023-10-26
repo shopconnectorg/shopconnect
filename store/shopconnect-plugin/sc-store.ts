@@ -22,7 +22,7 @@ const useShopConnectStore = create<ShopConnectState & ShopConnectActions>()(
       promotions: [],
       userDID: '',
       savePromotions: (promotions) => set(() => ({ promotions })),
-      setUserDID: (value) => set(() => ({ userDID: value })),
+      setUserDID: (userDID) => set(() => ({ userDID })),
       updateListenerInitialized: (listenerInitialized) => set(() => ({ listenerInitialized }))
     }),
     {
