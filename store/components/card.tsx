@@ -1,11 +1,9 @@
 'use client'
 
-import { useRouter } from "next/navigation"
 import Link from "next/link";
-import { useCart } from "../app/template";
-import { useContext } from "react";
 import type { Item } from '../src/types';
 import { useStore } from "@/src/store";
+import { computeItemPromotion } from "@/src/utils";
 
 type CardProps = {
   item: Item;
@@ -14,10 +12,9 @@ type CardProps = {
 export default function Card({ item }: CardProps) {
   const { id, name, price, image } = item;
   const addToCart = useStore((state) => state.addToCart);
+  const promotions = useStore((state) => state.promotions);
 
-  const discounts = useStore((state) => state.discounts);
-  const discountItem = discounts.find((discount) => discount.itemId === id);
-  const discount = discountItem ? discountItem.percentage / 100 : 0;
+  const { finalUnitPrice, promotion, unitDiscount } = computeItemPromotion(promotions, item);
 
   return (
     <Link key={id} href={`/item/${id}`}  className="group cursor-pointer">
@@ -31,13 +28,13 @@ export default function Card({ item }: CardProps) {
       <h3 className="mt-4 text-sm">{name}</h3>
       <div className="flex justify-between">
         {
-          discount > 0 ?
+          unitDiscount > 0 && promotion !== undefined ?
             <div>
               <div className="flex flex-row gap-2">
                 <p className="mt-1 text-lg font-medium line-through">${price}</p>
-                <p className="mt-1 text-lg font-medium text-red-500">-{discount * 100}%</p>
+                <p className="mt-1 text-lg font-medium text-red-500">-{promotion.discount * 100}%</p>
               </div>
-              <p className="mt-1 text-lg font-medium">${(price - (price * discount)).toFixed(2)}</p> 
+              <p className="mt-1 text-lg font-medium">{finalUnitPrice.toFixed(2)}</p> 
             </div>
             : 
             <p className="mt-1 text-lg font-medium">${price}</p>

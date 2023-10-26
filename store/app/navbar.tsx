@@ -1,8 +1,6 @@
 'use client';
-import { Fragment, useState } from 'react'
-import { Dialog, Transition } from '@headlessui/react'
-import { Bars3Icon, ShoppingBagIcon, XMarkIcon } from '@heroicons/react/24/outline'
-import { useCartTotalQuantity } from '../src/hooks';
+import { ShoppingBagIcon } from '@heroicons/react/24/outline'
+import { useCart } from '../src/hooks';
 import Link from 'next/link';
 import ShoppingCart from './ShoppingCart';
 import { useStore } from '@/src/store';
@@ -10,7 +8,7 @@ import { useStore } from '@/src/store';
 export default () => {
   const cartDisplayed = useStore((state) => state.cartDisplayed);
   const setCartDisplayed = useStore((state) => state.setCartDisplayed);
-  const totalQuantity = useCartTotalQuantity();
+  const cart = useCart();
 
   return (
     <div className="bg-white">
@@ -42,7 +40,7 @@ export default () => {
                       className="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
                       aria-hidden="true"
                     />
-                    <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">{totalQuantity}</span>
+                    <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">{cart.totalQuantity}</span>
                     <span className="sr-only">items in cart, view bag</span>
                   </a>
                 </div>

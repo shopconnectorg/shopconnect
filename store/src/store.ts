@@ -2,20 +2,20 @@ import { create } from 'zustand';
 import { devtools, persist } from 'zustand/middleware';
 import type {} from '@redux-devtools/extension' // required for devtools typing
 
-import { Cart, Discount, Item } from './types';
+import { Cart, Promotion, Item } from './types';
 
 type Store = {
   cart: Cart,
   cartDisplayed: boolean,
-  discounts: Discount[],
-  userDID: string,
+  promotions: Promotion[],
+  userDID: string
 };
 
 type StoreActions = {
   addToCart: (item: Item) => void,
-  addDiscount: (discount: Discount) => void,
-  setCartDisplayed: (value: boolean) => void
-  setUserDID: (value: string) => void,
+  addPromotion: (promotion: Promotion) => void,
+  setCartDisplayed: (value: boolean) => void,
+  setUserDID: (value: string) => void
 }
 
 const useStore = create<Store & StoreActions>()(
@@ -25,7 +25,7 @@ const useStore = create<Store & StoreActions>()(
         // State
         cart: { items: [] },
         cartDisplayed: false,
-        discounts: [],
+        promotions: [],
         userDID: '',
         // Actions
         addToCart: (item) => set(() => {
@@ -55,15 +55,15 @@ const useStore = create<Store & StoreActions>()(
             cartDisplayed: true,
           }
         }),
-        addDiscount: (discount) => set(() => {
-          const discounts = get().discounts;
+        addPromotion: (promotion) => set(() => {
+          const promotions = get().promotions;
 
           return {
-            discounts: [...discounts, discount]
+            promotions: [...promotions, promotion]
           }
         }),
         setCartDisplayed: (value) => set(() => ({ cartDisplayed: value })),
-        setUserDID: (value) => set(() => ({ userDID: value })),
+        setUserDID: (value) => set(() => ({ userDID: value }))
       }),
       {
         name: 'store-state',

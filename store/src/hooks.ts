@@ -1,24 +1,39 @@
 import { useStore } from './store';
+import { computeItemPromotion } from './utils';
 
-const useCartTotalQuantity = () => {
+const useCart = () => {
   const cart = useStore((state) => state.cart);
+  const promotions = useStore((state) => state.promotions);
 
-  return cart.items.reduce((accumulator, cartItem) => accumulator + cartItem.quantity, 0)
-};
+  let total = 0;
+  let totalQuantity = 0;
 
-const useCartTotalPrice = () => {
-  const cart = useStore((state) => state.cart);
-  const discounts = useStore((state) => state.discounts);
+  const computedCart = {
+    ...cart,
+    items: cart.items.map((item) => {
+      const { unitDiscount } = computeItemPromotion(promotions, item.item);
 
-  return cart.items.reduce((accumulator, cartItem) => {
-    const discountItem = discounts.find((discount) => discount.itemId === cartItem.item.id);
-    const discount = discountItem ? (1 - discountItem.percentage / 100) : 1;
+      const finalUnitPrice = item.item.price - unitDiscount;
 
-    return accumulator + cartItem.quantity * cartItem.item.price * discount;
-  }, 0)
+      total += finalUnitPrice * item.quantity;
+      totalQuantity += item.quantity;
+
+      return {
+        ...item,
+        unitDiscount,
+        finalUnitPrice
+      };
+    }),
+    total: 0,
+    totalQuantity: 0
+  }
+
+  computedCart.total = total;
+  computedCart.totalQuantity = totalQuantity;
+
+  return computedCart;
 }
 
 export {
-  useCartTotalPrice,
-  useCartTotalQuantity
+  useCart
 };

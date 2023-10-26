@@ -3,7 +3,7 @@ import { Dialog, Transition } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
 import Link from 'next/link'
 import { useStore } from '@/src/store';
-import { useCartTotalPrice } from '@/src/hooks';
+import { useCart } from '@/src/hooks';
 
 type ShoppingCartProps = {
   cartDisplayed: boolean;
@@ -11,23 +11,19 @@ type ShoppingCartProps = {
 };
 
 export default ({ cartDisplayed, setCartDisplayed }) => {
-  const cart = useStore((state) => state.cart);
-  const cartTotalPrice = useCartTotalPrice();
-  const discounts = useStore((state) => state.discounts);
+  const cart = useCart();
 
   const removeFromCart = (event, id) => {
     event.stopPropagation();
   };
 
   const itemPrice = (item) => {
-    const discountItem = discounts.find((discount) => discount.itemId === item.id);
-    const discount = discountItem ? discountItem.percentage / 100 : 0;
     return (
       <Fragment>
-        <p className={`ml-4${discount > 0 && ' line-through'}`}>{item.price}</p>
-        {discount > 0 && (
+        <p className={`ml-4${item.unitDiscount > 0 && ' line-through'}`}>{item.price}</p>
+        {item.unitDiscount > 0 && (
           <p className="mt-1 text-lg font-medium text-red-500">
-            {(1 - discount) * item.price}
+            {item.finalUnitPrice}
           </p>
         )}
       </Fragment>
@@ -130,7 +126,7 @@ export default ({ cartDisplayed, setCartDisplayed }) => {
                     <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
                       <div className="flex justify-between text-base font-medium text-gray-900">
                         <p>Subtotal</p>
-                        <p>${cartTotalPrice}</p>
+                        <p>${cart.total}</p>
                       </div>
                       <p className="mt-0.5 text-sm text-gray-500">Shipping and taxes calculated at checkout.</p>
                       <div className="mt-6">

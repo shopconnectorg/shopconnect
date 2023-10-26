@@ -5,7 +5,7 @@ async function getAllPromotions(req: IReq, res: IRes) {
   const { did } = req.query;
 
   const response = await fetch(
-    `${process.env.SHOPCONNECT_API_URL}/stores/asd/promotions?did={did}`
+    `${process.env.SHOPCONNECT_API_URL}/stores/asd/promotions?did=${did}`
   );
 
   const promotions = await response.json();
