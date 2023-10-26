@@ -19,14 +19,14 @@ export default function DetailPage({params} : {params: {id: string}}) {
         <div className="w-1/2">
           <img src={itemData.image} className="h-full w-full object-cover object-center" />
         </div>
-        <div className="flex justify-between flex-col h-full w-1/2">
+        <div className="flex justify-between flex-col w-1/2">
           <div>
             <h1 className="text-5xl font-bold">{itemData.name}</h1>
             <p className="py-4">
               {itemData.description}
             </p>
           </div>
-          <div className="flex flex-row items-center gap-6 justify-end">
+          <div className="flex flex-row items-center gap-6 justify-end mt-16">
             {
               unitDiscount > 0 && promotion !== undefined ? (
                   <div className="flex flex-row gap-2">

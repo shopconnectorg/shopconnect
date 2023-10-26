@@ -6,12 +6,12 @@
     "items": [
       {
         "id": 1,
-        "name": "Cheap coffee maker",
+        "name": "Budget coffee maker",
         "description": "Compact, simple, and budget-friendly, it brews a perfect cup in minutes. Your morning ritual just got more economical.",
         "category": "budget_coffee_machines",
         "brand": "DeLongi",
         "price": 100,
-        "image": "https://m.media-amazon.com/images/I/51IZXFH6bWL._AC_SL1036_.jpg"
+        "image": "http://localhost:3000/images/budget_coffee_maker.jpg"
       },
       {
         "id": 2,
