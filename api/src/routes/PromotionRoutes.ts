@@ -65,13 +65,28 @@ async function issueCredential(req: IReq<JSONObject>, res: IRes) {
   });
   if (createCredentialResponse.status >= 200 && createCredentialResponse.status < 300) {
     const { id: credentialId } = await createCredentialResponse.json();
-    const getCredentialResponse = await fetch(`${EnvVars.PolygonId.Issuer.url}/v1/credentials/${credentialId}/qrcode`, {
-      headers: {
-        'Authorization': EnvVars.PolygonId.Issuer.auth
-      },
-    });
+    console.log('Credential ID', credentialId);
+    const [getCredentialResponse, publishStateResponse] = await Promise.all([
+      fetch(`${EnvVars.PolygonId.Issuer.url}/v1/credentials/${credentialId}/qrcode`, {
+        headers: {
+          'Authorization': EnvVars.PolygonId.Issuer.auth
+        },
+      }),
+      fetch(`${EnvVars.PolygonId.Issuer.url}/v1/state/publish`, {
+        method: 'post',
+        headers: {
+          'Authorization': EnvVars.PolygonId.Issuer.auth
+        },
+      }),
+    ]);
+    //FIXME: Debug output
+    if (publishStateResponse.status >= 200 && publishStateResponse.status < 300) {
+      const publishStateData = await publishStateResponse.json();
+      console.log('Published state', publishStateData.txID);
+    }
     if (getCredentialResponse.status >= 200 && getCredentialResponse.status < 300) {
       const credentialData = await getCredentialResponse.json();
+      // console.log('Credential data', credentialData);
       return res.status(StatusCodes.OK).json(credentialData);
     } else {
       const { message } = await getCredentialResponse.json();
