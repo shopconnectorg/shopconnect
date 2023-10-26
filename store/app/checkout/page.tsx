@@ -4,14 +4,15 @@ import { CompletePurchase } from "@/components";
 import { useCart } from '@/src/hooks';
 import { useStore } from "@/src/store";
 import { confirmPurchase } from '@/shopconnect-plugin/service';
+import { useShopConnectStore } from '@/shopconnect-plugin/sc-store';
 import { computeItemPromotion } from "@/src/utils";
 import { Item } from "@/src/types";
 
 export default function Page() {
   const [error, setError] = useState('');
   const cart = useCart();
-  const promotions = useStore((state) => state.promotions);
-  const userDID = useStore((state) => state.userDID);
+  const { userDID } = useShopConnectStore((state) => state);
+  const { promotions } = useStore((state) => state);
   const [credentialRequest, setCredentialRequest] = useState(null);
 
   const removeFromCart = (e: any, id: number) => {
@@ -156,7 +157,7 @@ export default function Page() {
                     </div>
                   </li>
                   <li className="flex py-6 flex-col">
-                    <div>DID: {userDID}</div>
+                    <div>Shop Connect plugin: {userDID ? 'OK' : 'N/A'}</div>
                     {error && <div style={{ color: 'red' }}>Error: {error}</div>}
                     <button className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700" onClick={()=>purchase()}>
                       Complete purchase

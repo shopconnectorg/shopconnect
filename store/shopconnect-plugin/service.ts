@@ -18,10 +18,9 @@ const fetchPromotions = async (did) => {
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}/shopconnect-plugin/promotions?did=${did}`
   );
-
-  const promotionsData = await response.json();
-
-  messageExtension('loadPromotions', promotionsData);
+  const promotions = await response.json();
+  messageExtension('loadPromotions', promotions);
+  return promotions;
 };
 
 // @ts-ignore

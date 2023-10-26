@@ -8,14 +8,12 @@ type Store = {
   cart: Cart,
   cartDisplayed: boolean,
   promotions: Promotion[],
-  userDID: string
 };
 
 type StoreActions = {
   addToCart: (item: Item) => void,
   addPromotion: (promotion: Promotion) => void,
   setCartDisplayed: (value: boolean) => void,
-  setUserDID: (value: string) => void
 }
 
 const useStore = create<Store & StoreActions>()(
@@ -63,7 +61,6 @@ const useStore = create<Store & StoreActions>()(
           }
         }),
         setCartDisplayed: (value) => set(() => ({ cartDisplayed: value })),
-        setUserDID: (value) => set(() => ({ userDID: value }))
       }),
       {
         name: 'store-state',

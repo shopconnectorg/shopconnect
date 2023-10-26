@@ -6,14 +6,20 @@ import { useStore } from '@/src/store';
 
 const useShopConnect = async () => {
   const listenerInitialized = useShopConnectStore((state) => state.listenerInitialized);
-  const updateListenerInitialized = useShopConnectStore((state) => state.updateListenerInitialized);
-  const { addDiscount, setUserDID } = useStore((state) => state);
+  const { promotions, updateListenerInitialized, savePromotions, setUserDID } = useShopConnectStore((state) => state);
+  const { addPromotion } = useStore((state) => state);
 
   const applyPromotion = async (promotionId: number) => {
-    setTimeout(async () => {
-      await confirmPromotion(promotionId);
-      addDiscount({ itemId: 2, percentage: 20 });
-    }, 2000);
+    // setTimeout(async () => {
+      const promotion = promotions.find(promo => promo.id === promotionId);
+      console.log(promotions);
+      if (promotion) {
+        await confirmPromotion(promotionId);
+        addPromotion(promotion);
+      } else {
+        console.error('Promotion not found by ID', promotionId);
+      }
+    // }, 2000);
   }
 
   useEffect(() => {
@@ -26,10 +32,13 @@ const useShopConnect = async () => {
             console.log(event.data);
             const { payload: { topic, data } } = event.data;
             switch (topic) {
-              case 'fetchPromotions':
+              case 'fetchPromotions': {
                 setUserDID(data.did);
-                await fetchPromotions(data.did);
+                const promotions = await fetchPromotions(data.did);
+                console.log('savePromotions', promotions);
+                savePromotions(promotions);
                 break;
+              }
               case 'applyPromotion':
                 applyPromotion(data.promotionId);
             }
