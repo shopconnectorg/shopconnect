@@ -8,9 +8,31 @@ const messageExtension = (topic: string, data: any, callback?: () => {}) => {
   }
 };
 
-const confirmPromotion = async (promotionId: number) => {
-  console.log('confirm', promotionId);
-  messageExtension('confirmPromotion', promotionId);
+const confirmPromotion = async (promotion: object, token: string) => {
+  try {
+    // @ts-ignore
+    console.log('Confirming VC', promotion.id);
+    const response = await fetch(
+      // @ts-ignore
+      `${process.env.NEXT_PUBLIC_API_URL}/shopconnect-plugin/${promotion.id}/apply`,
+      {
+        method: 'post',
+        // @ts-ignore
+        body: JSON.stringify({ authRequest: promotion.authRequest, token }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      },
+    );
+    console.log('VC confirmed', response.status);
+    if (response.status >= 200 && response.status < 300) {
+      return true;
+    }
+    throw new Error(`Error verifying ZK proof: ${response.statusText}`);
+  } finally {
+    // @ts-ignore
+    messageExtension('confirmPromotion', promotion.id);
+  }
 }
 
 // @ts-ignore

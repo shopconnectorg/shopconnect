@@ -16,13 +16,12 @@ const useShopConnect = async () => {
   );
   const { addPromotion } = useStore((state) => state);
 
-  const applyPromotion = async (promotionId: number) => {
+  const applyPromotion = async (promotionId: number, token: string) => {
     const currentPromotions = useShopConnectStore.getState().promotions // Fetch latest version from state
     const promotion = currentPromotions.find(promo => promo.id === promotionId);
-
     if (promotion) {
       console.log(`Applying promotion #${promotion.id}`)
-      await confirmPromotion(promotionId);
+      await confirmPromotion(promotion, token);
       addPromotion(promotion);
     } else {
       console.error('Promotion not found by ID', promotionId);
@@ -45,7 +44,7 @@ const useShopConnect = async () => {
                 break;
               }
               case 'applyPromotion':
-                await applyPromotion(data.promotionId);
+                await applyPromotion(data.promotionId, data.token);
                 break;
             }
           }

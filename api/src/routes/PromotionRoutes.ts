@@ -86,22 +86,30 @@ async function issueCredential(req: IReq<JSONObject>, res: IRes) {
 async function verifyProof(req: IReq<JSONObject>, res: IRes) {
   const { Chain } = EnvVars.PolygonId;
   const resolvers: resolver.Resolvers = {
-    ['polygon:mumbai']: new resolver.EthStateResolver(Chain.Polygon.rpcUrl, Chain.Polygon.contract),
-    ['zkevm:test']: new resolver.EthStateResolver(Chain.ZkEvm.rpcUrl, Chain.ZkEvm.contract),
-    ['scroll:sepolia']: new resolver.EthStateResolver(Chain.Scroll.rpcUrl, Chain.Scroll.contract),
-    ['mantle:test']: new resolver.EthStateResolver(Chain.Mantle.rpcUrl, Chain.Mantle.contract),
+    ...Chain.Polygon && {
+      ['polygon:mumbai']: new resolver.EthStateResolver(Chain.Polygon.rpcUrl, Chain.Polygon.contract),
+    },
+    ...Chain.ZkEvm && {
+      ['zkevm:test']: new resolver.EthStateResolver(Chain.ZkEvm.rpcUrl, Chain.ZkEvm.contract),
+    },
+    ...Chain.Scroll && {
+      ['scroll:sepolia']: new resolver.EthStateResolver(Chain.Scroll.rpcUrl, Chain.Scroll.contract),
+    },
+    ...Chain.Mantle && {
+      ['mantle:test']: new resolver.EthStateResolver(Chain.Mantle.rpcUrl, Chain.Mantle.contract),
+    },
   };
   const verifier = await auth.Verifier.newVerifier({
     stateResolver: resolvers,
     circuitsDir: EnvVars.PolygonId.circuitsPath,
     ipfsGatewayURL: EnvVars.PolygonId.ipfsUrl,
   });
-  //TODO: Get this from request body
-  const { authRequest, authResponse } = req.body;
+  // Get this from request body
+  const { authRequest, token } = req.body;
   ;
   // Now, the magic begins 🪄
   // @ts-ignore
-  const result = await verifier.fullVerify(authResponse.token, authRequest, {
+  const result = await verifier.fullVerify(token, authRequest, {
     acceptedStateTransitionDelay: 5 * 60 * 1000, // 5 minutes
   });
   console.log(result);
