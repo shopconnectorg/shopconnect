@@ -9,6 +9,7 @@ import { computeItemPromotion } from "@/src/utils";
 import { Item } from "@/src/types";
 
 export default function Page() {
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const cart = useCart();
   const { userDID } = useShopConnectStore((state) => state);
@@ -36,6 +37,7 @@ export default function Page() {
 
   const purchase = async () => {
     setError('');
+    setLoading(true);
     try {
       //FIXME: Currently only one cart item is supported
       const [{ quantity, item }] = cart.items;
@@ -47,6 +49,8 @@ export default function Page() {
     } catch (err) {
       // @ts-ignore
       setError(err.message);
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -159,7 +163,7 @@ export default function Page() {
                   <li className="flex py-6 flex-col">
                     <div>Shop Connect plugin: {userDID ? 'OK' : 'N/A'}</div>
                     {error && <div style={{ color: 'red' }}>Error: {error}</div>}
-                    <button className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700" onClick={()=>purchase()}>
+                    <button className={`flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700 ${loading || !userDID ? 'opacity-50 cursor-not-allowed' : ''}`} onClick={()=>purchase()}>
                       Complete purchase
                     </button>
                   </li>
