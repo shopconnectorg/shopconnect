@@ -14,7 +14,7 @@
         "id": 2,
         "name": "Premium Coffee Maker",
         "description": "Where coffee becomes an art form. Precision, customization, and premium design for a coffee experience like no other.",
-        "category": "coffeeMachines",
+        "category": "premiumCoffeeMachines",
         "brand": "Breville",
         "price": 1000,
         "image": "https://m.media-amazon.com/images/I/61MsT0AQSrL._AC_SL1500_.jpg"

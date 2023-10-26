@@ -13,9 +13,10 @@ const confirmPromotion = async (promotionId: number) => {
   messageExtension('confirmPromotion', promotionId);
 }
 
-const fetchPromotions = async () => {
+// @ts-ignore
+const fetchPromotions = async (did) => {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/shopconnect-plugin/promotions?did=test`
+    `${process.env.NEXT_PUBLIC_API_URL}/shopconnect-plugin/promotions?did=${did}`
   );
 
   const promotionsData = await response.json();
@@ -24,12 +25,11 @@ const fetchPromotions = async () => {
 };
 
 // @ts-ignore
-const confirmPurchase = async (userDID, item, qty, price) => {
+const confirmPurchase = async (did, item, qty, price) => {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/shopconnect-plugin/purchases?did=${userDID}`, {
+    `${process.env.NEXT_PUBLIC_API_URL}/shopconnect-plugin/purchases?did=${did}`, {
       method: 'post',
       body: JSON.stringify({
-        id: userDID,
         qty,
         price,
         item: {

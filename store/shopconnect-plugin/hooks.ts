@@ -7,8 +7,7 @@ import { useStore } from '@/src/store';
 const useShopConnect = async () => {
   const listenerInitialized = useShopConnectStore((state) => state.listenerInitialized);
   const updateListenerInitialized = useShopConnectStore((state) => state.updateListenerInitialized);
-  const addDiscount = useStore((state) => state.addDiscount);
-  const setUserDID = useStore((state) => state.setUserDID);
+  const { addDiscount, setUserDID } = useStore((state) => state);
 
   const applyPromotion = async (promotionId: number) => {
     setTimeout(async () => {
@@ -27,11 +26,9 @@ const useShopConnect = async () => {
             console.log(event.data);
             const { payload: { topic, data } } = event.data;
             switch (topic) {
-              case 'ready':
-                setUserDID(data.did);
-                break;
               case 'fetchPromotions':
-                await fetchPromotions();
+                setUserDID(data.did);
+                await fetchPromotions(data.did);
                 break;
               case 'applyPromotion':
                 applyPromotion(data.promotionId);
