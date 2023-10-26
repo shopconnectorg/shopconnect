@@ -40,10 +40,10 @@ export default function Page() {
       //FIXME: Currently only one cart item is supported
       const [{ quantity, item }] = cart.items;
       const promotion = computeItemPromotion(promotions, item);
-
+      const price = Math.round(promotion.finalUnitPrice * 100);
       //TODO: Maybe trigger loading animation?
-      const data = await confirmPurchase(userDID, item, quantity, promotion.finalUnitPrice);
-      setCredentialRequest(data);
+      const authRequest = await confirmPurchase(userDID, item, quantity, price);
+      setCredentialRequest(authRequest);
     } catch (err) {
       // @ts-ignore
       setError(err.message);
@@ -53,7 +53,7 @@ export default function Page() {
   return (
     <>
       {credentialRequest ? (
-        <CompletePurchase credentialRequest={credentialRequest} />
+        <CompletePurchase credentialRequest={credentialRequest} item={cart.items[0]} />
       ) : (
         <div className="gx tv ari asq aus cfc cxj ddh">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex">

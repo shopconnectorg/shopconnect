@@ -1,18 +1,19 @@
 "use client";
 import { useState } from 'react';
-import { useCartTotalPrice } from '@/src/hooks';
-import { useStore } from "@/src/store";
+// import { useCartTotalPrice } from '@/src/hooks';
+// import { useStore } from "@/src/store";
 
 // @ts-ignore
-export default function CompletePurchase({ credentialRequest }) {
+export default function CompletePurchase({ credentialRequest, item }) {
   const [claimed, setClaimed] = useState(false);
   const [error, setError] = useState('');
 
   async function storeCredential() {
     setError('');
     try {
-      const data = btoa(JSON.stringify(credentialRequest));
-      const event = new CustomEvent('authEvent', { detail: `iden3comm://?i_m=${data}` });
+      const credentialData = btoa(JSON.stringify(credentialRequest));
+      const purchaseData = btoa(JSON.stringify({ ...item }));
+      const event = new CustomEvent('authEvent', { detail: `iden3comm://?i_m=${credentialData}&purchase=${purchaseData}` });
       //TODO: Maybe trigger loading animation?
       document.dispatchEvent(event);
       //TODO: Maybe wait for credential to be actually stored?
