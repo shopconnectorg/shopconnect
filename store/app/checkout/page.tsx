@@ -171,7 +171,7 @@ export default function CheckoutPage() {
                   <li className="flex py-6 flex-col">
                     <div className="flex justify-between text-base font-bold text-gray-900">
                       <h3>Total</h3>
-                      <p className="ml-4">${cart.total + 4.99}</p>
+                      <p className="ml-4">${(cart.total + 4.99).toFixed(2)}</p>
                     </div>
                   </li>
                   <li className="flex py-6 flex-col">

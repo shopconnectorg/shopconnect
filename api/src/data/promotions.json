@@ -4,12 +4,12 @@
     "discount": 20,
     "discountType": "percentage",
     "expiration": 1701475199,
-    "requirements": ">$800 spent on \"premium brand\" coffee machines.",
+    "requirements": "Purchased \"premium brand\" coffee machine",
     "appliesTo": {
       "category": "premium_coffee"
     },
     "title": "Premium Coffee Beans",
-    "image": "https://d1uutfeu2e3s3x.cloudfront.net/images/default-source/exclusives-and-gift-detail-(1000x1000)/packed-coffee/signature-nomad/bacha-fine-flavoured-grand-moka-matari-signature-nomad-packed-whole-coffee-beans.tmb-bc00000005.jpg",
+    "image": "https://kidding-kangaroo.static.domains/premium_coffee.jpg",
     "query": {
       "item.category": {
         "$eq": "premium_coffee_machines"
@@ -21,12 +21,12 @@
     "discount": 10,
     "discountType": "percentage",
     "expiration": 1701475199,
-    "requirements": "> $50 spent on \"budget\" coffee machines.",
+    "requirements": "Purchased \"budget\" coffee machine",
     "appliesTo": {
       "category": "budget_coffee"
     },
-    "title": "Nescafe Coffee Beans",
-    "image": "https://m.media-amazon.com/images/I/81gW593lUFL._SL1500_.jpg",
+    "title": "Budget Coffee Beans",
+    "image": "https://kidding-kangaroo.static.domains/dunkin.jpg",
     "query": {
       "item.category": {
         "$eq": "budget_coffee_machines"
@@ -38,9 +38,9 @@
     "discount": 5,
     "discountType": "percentage",
     "expiration": 1698102000,
-    "requirements": "Recurring customer discount.",
-    "title": "Premium Coffee Machine",
-    "image": "https://m.media-amazon.com/images/I/51IZXFH6bWL._AC_SL1036_.jpg",
+    "requirements": "Must have made a purchase at any branch of the store",
+    "title": "Returning customer discount",
+    "image": "https://kidding-kangaroo.static.domains/returning.jpg",
     "query": {
       "item.price": {
         "$gt": 50000
