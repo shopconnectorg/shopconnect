@@ -107,9 +107,6 @@ async function issueCredential(req: IReq<JSONObject>, res: IRes) {
 }
 
 async function verifyProof(req: IReq<JSONObject>, res: IRes) {
-  return res.status(StatusCodes.OK).json({
-    message: "OK",
-  });
   const { Chain } = EnvVars.PolygonId;
   const resolvers: resolver.Resolvers = {
     ...Chain.Polygon && {
