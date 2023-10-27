@@ -134,7 +134,7 @@ export default function CheckoutPage() {
                         <img
                           src={cartItem.item.image}
                           alt={cartItem.item.name}
-                          className="h-full w-full object-cover object-center"
+                          className="h-full w-full object-contain object-center"
                         />
                       </div>
 

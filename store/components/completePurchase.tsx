@@ -41,20 +41,16 @@ export default function CompletePurchase({ credentialRequest, item }) {
             <div className="max-w-lg">
               <h1 className="text-4xl font-bold">Claim your <span className="text-blue-600">ShopConnect</span> proof of purchase!</h1>
               <p className="py-6 font-medium">
-                Store your proofs privately in your wallet and get access to exclusive promotions.
+                Get access to exclusive promotions.
               </p>
               <div className="flex items-center flex-col w-full">
                 {error && <div style={{ color: 'red' }}>Error: {error}</div>}
-                {claimed ? (
-                  <p className="text-lg"><b>Please accept your Proof of purchase in your ShopConnect Wallet</b></p>
-                ):  (
-                  <button
-                    className="flex items-center justify-center rounded-md border border-transparent bg-blue-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-blue-700"
-                    onClick={storeCredential}
-                  >
-                    Claim ⚡
-                  </button>
-                )}
+                <button
+                  className={`flex items-center justify-center rounded-md btn border border-transparent bg-blue-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-blue-700 ${claimed && 'btn-disabled'}`}
+                  onClick={storeCredential}
+                >
+                  Claim ⚡
+                </button>
               </div>
             </div>
           </div>
