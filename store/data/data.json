@@ -6,15 +6,6 @@
     "items": [
       {
         "id": 1,
-        "name": "Budget coffee maker",
-        "description": "Compact, simple, and budget-friendly, it brews a perfect cup in minutes. Your morning ritual just got more economical.",
-        "category": "budget_coffee_machines",
-        "brand": "DeLongi",
-        "price": 100,
-        "image": "http://localhost:3000/images/products/budget_coffee_maker.jpg"
-      },
-      {
-        "id": 2,
         "name": "Premium Espresso Coffee Maker",
         "description": "Where coffee becomes an art form. Precision, customization, and premium design for a coffee experience like no other.",
         "category": "premium_coffee_machines",
@@ -23,7 +14,7 @@
         "image": "http://localhost:3000/images/products/coffee_maker_pro.jpg"
       },
       {
-        "id": 3,
+        "id": 2,
         "name": "Coffee Grinder",
         "description": "Grind your own coffee beans and experience a whole new level of freshness.",
         "category": "coffee_brewing_supplies",
@@ -31,20 +22,29 @@
         "image": "http://localhost:3000/images/products/coffee_grinder.jpg"
       },
       {
-        "id": 4,
-        "name": "Scale",
-        "description": "The perfect cup of coffee requires precision. This scale helps you measure the right amount of coffee beans and water.",
-        "category": "coffee_brewing_supplies",
-        "price": 25,
-        "image": "http://localhost:3000/images/products/scale.jpg"
-      },
-      {
-        "id": 5,
+        "id": 3,
         "name": "Coffee Bean Canister",
         "description": "Keep your coffee beans fresh with this stainless steel canister. The vacuum seal keeps oxygen out and the built-in calendar wheel helps you track the freshness of your beans.",
         "category": "coffee_brewing_supplies",
         "price": 25,
         "image": "http://localhost:3000/images/products/container.webp"
+      },
+      {
+        "id": 4,
+        "name": "Budget coffee maker",
+        "description": "Compact, simple, and budget-friendly, it brews a perfect cup in minutes. Your morning ritual just got more economical.",
+        "category": "budget_coffee_machines",
+        "brand": "DeLongi",
+        "price": 100,
+        "image": "http://localhost:3000/images/products/budget_coffee_maker.jpg"
+      },
+      {
+        "id": 5,
+        "name": "Coffee Mug",
+        "description": "The perfect vessel for your coffee. The double-walled glass keeps your coffee warm and your hands cool.",
+        "category": "coffee_brewing_supplies",
+        "price": 15,
+        "image": "http://localhost:3000/images/products/mug.jpg"
       },
       {
         "id": 6,
@@ -56,11 +56,11 @@
       },
       {
         "id": 7,
-        "name": "Coffee Mug",
-        "description": "The perfect vessel for your coffee. The double-walled glass keeps your coffee warm and your hands cool.",
+        "name": "Scale",
+        "description": "The perfect cup of coffee requires precision. This scale helps you measure the right amount of coffee beans and water.",
         "category": "coffee_brewing_supplies",
-        "price": 15,
-        "image": "http://localhost:3000/images/products/mug.jpg"
+        "price": 25,
+        "image": "http://localhost:3000/images/products/scale.jpg"
       },
       {
         "id": 8,
@@ -79,57 +79,57 @@
     "items": [
       {
         "id": 1,
-        "name": "Cheap Nescafe Beans",
-        "description": "Budget-friendly coffee beans. Enjoy the rich taste of Nescafe without the premium price tag. Perfect for daily sips without breaking the bank.",
-        "category": "budget_coffee",
-        "brand": "Nescafe",
-        "price": 15,
-        "image": "https://m.media-amazon.com/images/I/81gW593lUFL._SL1500_.jpg"
+        "name": "Lavazza Super Crema Coffee Beans",
+        "description": "Hand-selected from the world's finest regions, these beans deliver a truly luxurious coffee experience. Each cup is a journey into the world of exquisite flavors and aromas. Elevate your coffee ritual with our premium beans.",
+        "category": "premium_coffee",
+        "brand": "Lavazza Super Crema",
+        "price": 30,
+        "image": "http://localhost:3000/images/products/coffee_premium_2.jpg"
       },
       {
         "id": 2,
-        "name": "Premium Coffee Beans",
-        "description": "Hand-selected from the world's finest regions, these beans deliver a truly luxurious coffee experience. Each cup is a journey into the world of exquisite flavors and aromas. Elevate your coffee ritual with our premium beans.",
-        "category": "premium_coffee",
-        "brand": "Bacha Coffee",
-        "price": 100,
-        "image": "https://d1uutfeu2e3s3x.cloudfront.net/images/default-source/exclusives-and-gift-detail-(1000x1000)/packed-coffee/signature-nomad/bacha-fine-flavoured-grand-moka-matari-signature-nomad-packed-whole-coffee-beans.tmb-bc00000005.jpg"
+        "name": "Tim Hortons Ground Coffee",
+        "description": "Budget-friendly coffee beans. Enjoy the rich taste of Nescafe without the premium price tag. Perfect for daily sips without breaking the bank.",
+        "category": "budget_coffee",
+        "brand": "Tim Hortons",
+        "price": 6,
+        "image": "http://localhost:3000/images/products/budget_coffee.jpg"
       },
       {
         "id": 3,
-        "name": "Cheap Nescafe Ground Coffee",
+        "name": "Dunkin' Hazelnut",
         "description": "Affordable coffee essential. Experience the classic Nescafe taste without the hefty price. Ideal for everyday brewing, it's the budget-savvy choice for your coffee fix.",
         "category": "budget_coffee",
-        "brand": "Nescafe",
-        "price": 15,
-        "image": "https://assets.iceland.co.uk/i/iceland/nescafe_original_300g_28542_T1?$pdpmain_2x$"
+        "brand": "Dunkin",
+        "price": 5,
+        "image": "http://localhost:3000/images/products/dunkin.jpg"
       },
       {
         "id": 4,
-        "name": "Premium Ground Coffee",
+        "name": "Copper Moon Sumatra",
         "description": "The epitome of coffee excellence. Sourced from the world's finest beans and expertly ground, it elevates your coffee experience to a whole new level. With exceptional flavor and aroma, each cup is a testament to the art of coffee.",
         "category": "premium_coffee",
-        "brand": "Saula",
-        "price": 100,
-        "image": "https://www.cafesaula.com/store/720-large_default/gran-espresso-premium-original-fine-cinnamon-250g-ground-coffee.jpg"
+        "brand": "Copper Moon",
+        "price": 40,
+        "image": "http://localhost:3000/images/products/coffee_premium_3.jpg"
       },
       {
         "id": 5,
-        "name": "Cheap Instant Coffee",
-        "description": "Affordable instant coffee fix. Enjoy the convenience and classic coffee taste without the premium cost.",
-        "category": "budget_coffee",
-        "brand": "Nescafe",
-        "price": 15,
-        "image": "https://i5.walmartimages.com/seo/Nescafe-Taster-S-Choice-Instant-Coffee-House-Blend-14-Oz-Wholesale-Cheap-Discount-Bulk-1-Pack_83892081-4bfa-44c9-85ca-454573dc10ec.1c87b60dd1ee4ce912e567263f6c7442.jpeg"
+        "name": "Death Wish Dark Roast",
+        "description": "The pinnacle of instant coffee luxury. Crafted from the world's finest coffee beans, it redefines your instant coffee experience with unmatched flavor and aroma.",
+        "category": "premium_coffee",
+        "brand": "Death Wish",
+        "price": 36,
+        "image": "http://localhost:3000/images/products/death_wish.jpg"
       },
       {
         "id": 6,
-        "name": "Premium Instant Coffee",
-        "description": "The pinnacle of instant coffee luxury. Crafted from the world's finest coffee beans, it redefines your instant coffee experience with unmatched flavor and aroma.",
-        "category": "premium_coffee",
-        "brand": "Starbucks",
-        "price": 100,
-        "image": "https://www.starbucksathome.com/au/sites/default/files/2021-06/SBUX_Website_Premium_Can_LongShadow_MediumRoastCan.png"
+        "name": "Community",
+        "description": "Affordable instant coffee fix. Enjoy the convenience and classic coffee taste without the premium cost.",
+        "category": "budget_coffee",
+        "brand": "Community",
+        "price": 7,
+        "image": "http://localhost:3000/images/products/community.jpg"
       }
     ]
   }

@@ -27,7 +27,7 @@ export default function Navbar() {
     <div className="mb-12">
       <header className="relative">
         <p className={`flex h-10 items-center justify-center px-4 text-sm font-medium text-white sm:px-6 lg:px-8 ${ storeId === 'store1' ? 'bg-blue-600' : 'bg-amber-600'}`}>
-          Get special discounts by using ShopConnect ⚡
+          Get special discounts with&nbsp;<span style={{ color: '#202033', fontWeight: 600 }}>ShopConnect</span>&nbsp;⚡
         </p>
 
         <nav aria-label="Top" className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">

@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 'use client'
 import { addAbortListener } from 'events';
-import { items } from '@/data/storeData';
+import { items, storeId } from '@/data/storeData';
 import { useStore } from '../../../src/store';
 import { Item } from '@/src/types';
 import { computeItemPromotion } from '@/src/utils';
@@ -37,7 +37,12 @@ export default function DetailPage({params} : {params: {id: string}}) {
                   <p className="text-3xl font-bold">${itemData.price}</p>
                 )
             }
-            <button className="btn btn-primary" onClick={() => { addToCart(itemData as Item) }}>Add to Cart</button>
+            <button
+              className={`btn ${storeId === 'store1' ? 'bg-blue-600 hover:bg-blue-700 text-white' : 'bg-amber-500 text-white hover:bg-amber-600'}`}
+              onClick={() => { addToCart(itemData as Item) }}
+            >
+              Add to Cart
+            </button>
           </div>
         </div>
       </div>

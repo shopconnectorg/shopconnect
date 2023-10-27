@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { computeItemPromotion } from '@/src/utils';
 import { useStore } from '@/src/store';
 import { useCart } from '@/src/hooks';
+import { storeId } from '@/data/storeData';
 
 type ShoppingCartProps = {
   cartDisplayed: boolean;
@@ -104,15 +105,14 @@ export default function ShoppingCart({ cartDisplayed, setCartDisplayed }) {
                                       </h3>
                                       {itemPrice(cartItem.item)}
                                     </div>
-                                    <p className="mt-1 text-sm text-gray-500">{cartItem.item.name}</p>
+                                    <p className="mt-1 text-sm text-gray-500">{cartItem.item.description.substr(0, 80)}...</p>
                                   </div>
-                                  <div className="flex flex-1 items-end justify-between text-sm">
+                                  <div className="flex flex-1 items-end justify-between text-sm mt-4">
                                     <p className="text-gray-500">Quantity: {cartItem.quantity}</p>
-
                                     <div className="flex">
                                       <button
                                         type="button"
-                                        className="font-medium text-indigo-600 hover:text-indigo-500"
+                                        className={`font-medium ${storeId === 'store1' ? 'text-blue-600 hover:text-blue-700' : 'text-amber-500 hover:text-amber-600'}`}
                                         onClick={(event) => { removeFromCart(event, cartItem.item.id) }}
                                       >
                                         Remove
@@ -136,7 +136,7 @@ export default function ShoppingCart({ cartDisplayed, setCartDisplayed }) {
                       <div className="mt-6">
                         <Link
                           href="/checkout"
-                          className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
+                          className={`flex items-center btn shadow-sm px-6 py-3 text-base font-medium text-white ${storeId === 'store1' ? 'bg-blue-600 hover:bg-blue-700' : 'bg-amber-500 hover:bg-amber-600'}`}
                           onClick={checkoutClick}
                         >
                           Checkout
@@ -147,7 +147,7 @@ export default function ShoppingCart({ cartDisplayed, setCartDisplayed }) {
                           or&nbsp;
                           <button
                             type="button"
-                            className="font-medium text-indigo-600 hover:text-indigo-500"
+                            className={`font-medium ${storeId === 'store1' ? 'text-blue-600 hover:text-blue-700' : 'text-amber-500 hover:text-amber-600'}`}
                             onClick={() => setCartDisplayed(false)}
                           >
                             Continue Shopping

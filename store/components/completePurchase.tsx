@@ -1,4 +1,5 @@
 "use client";
+import { storeId } from '@/data/storeData';
 import { useState } from 'react';
 // import { useCartTotalPrice } from '@/src/hooks';
 // import { useStore } from "@/src/store";
@@ -28,25 +29,35 @@ export default function CompletePurchase({ credentialRequest, item }) {
     <div className="flex justify-center mt-6 pb-6">
       <div className="flex flex-col gap-y-12 w-1/2">
         <div>
-          <p className="font-medium text-indigo-600">
+          <h1 className="font-bold text-4xl mb-4">
             Thank you for your purchase!
-          </p>
-          <h1 className="font-bold text-4xl">Order on the way!</h1>
+          </h1>
           <p className="text-gray-500">
-            Your order #1284 has been shipped and will be delivered to you soon.
+            Your order will be shipped and delivered to you soon.
           </p>
         </div>
-
-        <div className="flex items-start flex-col w-full">
-          <h2><b>Claim your ShopConnect proof of purchase!</b></h2><br /><br />
-          {error && <div style={{ color: 'red' }}>Error: {error}</div>}
-          {claimed ? (
-            <p><b>Your proof of purchase has been saved in your ShopConnect wallet!</b></p>
-          ):  (
-            <button className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700" onClick={storeCredential}>
-              Claim ⚡
-            </button>
-          )}
+        <div className="hero bg-base-200 pt-12 pb-12 rounded-lg">
+          <div className="hero-content text-center">
+            <div className="max-w-lg">
+              <h1 className="text-4xl font-bold">Claim your <span className="text-blue-600">ShopConnect</span> proof of purchase!</h1>
+              <p className="py-6 font-medium">
+                Store your proofs privately in your wallet and get access to exclusive promotions.
+              </p>
+              <div className="flex items-center flex-col w-full">
+                {error && <div style={{ color: 'red' }}>Error: {error}</div>}
+                {claimed ? (
+                  <p className="text-lg"><b>Please accept your Proof of purchase in your ShopConnect Wallet</b></p>
+                ):  (
+                  <button
+                    className="flex items-center justify-center rounded-md border border-transparent bg-blue-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-blue-700"
+                    onClick={storeCredential}
+                  >
+                    Claim ⚡
+                  </button>
+                )}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

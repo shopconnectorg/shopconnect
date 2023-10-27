@@ -1,13 +1,6 @@
 import { StatusCodes } from 'http-status-codes';
 import { auth, resolver } from "@iden3/js-iden3-auth";
-import {
-  EthStateStorage,
-  CredentialRequest,
-  CredentialStatusType,
-  JSONObject,
-  AuthorizationRequestMessage,
-  core
-} from '@0xpolygonid/js-sdk';
+import { CredentialStatusType, JSONObject } from '@0xpolygonid/js-sdk';
 import { v4 as uuid } from 'uuid';
 import EnvVars from '../constants/EnvVars';
 import { IReq, IRes } from './types/express/requests';
@@ -85,9 +78,6 @@ async function issueCredential(req: IReq<JSONObject>, res: IRes) {
       }),
     ]);
     //FIXME: Debug output
-    console.log('sp', publishStateResponse.status);
-    console.log('sc', getCredentialResponse.status);
-
     if (publishStateResponse.status >= 200 && publishStateResponse.status < 300) {
       const publishStateData = await publishStateResponse.json();
       console.log('Published state', publishStateData.txID);

@@ -7,6 +7,7 @@ import { confirmPurchase } from '@/shopconnect-plugin/service';
 import { useShopConnectStore } from '@/shopconnect-plugin/sc-store';
 import { computeItemPromotion } from "@/src/utils";
 import { Item } from "@/src/types";
+import { storeId } from "@/data/storeData";
 
 export default function CheckoutPage() {
   const [loading, setLoading] = useState(false);
@@ -46,62 +47,85 @@ export default function CheckoutPage() {
       //TODO: Maybe trigger loading animation?
       const authRequest = await confirmPurchase(userDID, item, quantity, price);
       setCredentialRequest(authRequest);
+      setLoading(false);
+      window.scrollTo(0, 0);
     } catch (err) {
       // @ts-ignore
       setError(err.message);
-    } finally {
-      setLoading(false);
     }
   }
+
+  const purchaseButton = () => {
+    let buttonClass = `items-center btn shadow-sm px-6 py-3 text-base font-bold text-white ${storeId === 'store1' ? 'bg-blue-600 hover:bg-blue-700' : 'bg-amber-500 hover:bg-amber-600'}`;
+
+    if (!userDID) {
+      buttonClass += ' btn disabled';
+    }
+
+    return (
+      <button
+        className={buttonClass}
+        onClick={()=>purchase()}
+        disabled={!userDID}
+      >
+        {loading && <span className="loading loading-spinner"></span>}
+        Complete purchase
+      </button>
+    )
+  };
 
   return (
     <>
       {credentialRequest ? (
         <CompletePurchase credentialRequest={credentialRequest} item={cart.items[0]} />
       ) : (
-        <div className="gx tv ari asq aus cfc cxj ddh">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex">
-            <div className="w-1/2 flex flex-col gap-10 p-6">
-              <h3 className="text-2xl font-bold">Shipping Information</h3>
-              <div className="flex flex-row gap-6">
-                <div>
-                  <h3>First Name</h3>
-                  <input className="input input-bordered" />
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex">
+          <div className="w-1/2 pr-10">
+            <div>
+              <h3 className="text-2xl font-bold mb-6">Shipping Information</h3>
+              <div className="gap-8 flex flex-col">
+                <div className="flex flex-row gap-8">
+                  <div>
+                    <label className="block font-medium leading-6 text-gray-900">First name</label>
+                    <input className="input input-bordered mt-1" />
+                  </div>
+                  <div>
+                    <label className="block font-medium leading-6 text-gray-900">Last name</label>
+                    <input className="input input-bordered mt-1" />
+                  </div>
                 </div>
-                <div>
-                  <h3>Last Name</h3>
-                  <input className="input input-bordered" />
+                <div className="flex flex-row gap-6">
+                  <div>
+                    <h3>Address</h3>
+                    <input className="input input-bordered" />
+                  </div>
                 </div>
-              </div>
-              <div className="flex flex-row gap-6">
-                <div>
-                  <h3>Address</h3>
-                  <input className="input input-bordered" />
+                <div className="flex flex-row gap-6">
+                  <div>
+                    <h3>City</h3>
+                    <input className="input input-bordered" />
+                  </div>
+                  <div>
+                    <h3>Country</h3>
+                    <input className="input input-bordered" />
+                  </div>
                 </div>
-              </div>
-              <div className="flex flex-row gap-6">
-                <div>
-                  <h3>City</h3>
-                  <input className="input input-bordered" />
-                </div>
-                <div>
-                  <h3>Country</h3>
-                  <input className="input input-bordered" />
-                </div>
-              </div>
-              <div className="flex flex-row gap-6">
-                <div>
-                  <h3>State</h3>
-                  <input className="input input-bordered" />
-                </div>
-                <div>
-                  <h3>Zip</h3>
-                  <input className="input input-bordered" />
+                <div className="flex flex-row gap-6">
+                  <div>
+                    <h3>State</h3>
+                    <input className="input input-bordered" />
+                  </div>
+                  <div>
+                    <h3>Zip</h3>
+                    <input className="input input-bordered" />
+                  </div>
                 </div>
               </div>
             </div>
-            <div className="w-1/2 p-6">
-              <h3 className="text-2xl font-bold">Order summary</h3>
+          </div>
+          <div className="w-1/2 flex-shrink-0">
+            <div className="pl-10">
+              <h3 className="text-2xl font-bold mb-6">Order summary</h3>
               <div className="flow-root border-gray-300 border-2 p-6 rounded-xl">
                 <ul role="list" className="-my-6 divide-y divide-gray-200">
                   {cart.items.map((cartItem) => (
@@ -123,23 +147,13 @@ export default function CheckoutPage() {
                             <div className="ml-4">{itemPrice(cartItem.item)}</div>
                           </div>
                           <div className="mt-1 text-sm text-gray-500">
-                            {cartItem.item.description}
+                            {cartItem.item.description.substr(0, 80)}...
                           </div>
                         </div>
-                        <div className="flex flex-1 items-end justify-between text-sm">
+                        <div className="flex flex-1 items-end justify-between text-sm mt-4">
                           <p className="text-gray-500">
                             Quantity: {cartItem.quantity}
                           </p>
-
-                          <div className="flex">
-                            <button
-                              type="button"
-                              className="font-medium text-indigo-600 hover:text-indigo-500"
-                              onClick={(e) => removeFromCart(e, cartItem.item.id)}
-                            >
-                              Remove
-                            </button>
-                          </div>
                         </div>
                       </div>
                     </li>
@@ -161,11 +175,8 @@ export default function CheckoutPage() {
                     </div>
                   </li>
                   <li className="flex py-6 flex-col">
-                    <div>Shop Connect plugin: {userDID ? 'OK' : 'N/A'}</div>
                     {error && <div style={{ color: 'red' }}>Error: {error}</div>}
-                    <button className={`flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700 ${loading || !userDID ? 'opacity-50 cursor-not-allowed' : ''}`} onClick={()=>purchase()}>
-                      Complete purchase
-                    </button>
+                    {purchaseButton()}
                   </li>
                 </ul>
               </div>
