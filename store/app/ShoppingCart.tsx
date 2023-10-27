@@ -11,7 +11,7 @@ type ShoppingCartProps = {
   setCartDisplayed: (value: boolean) => void;
 };
 
-export default ({ cartDisplayed, setCartDisplayed }) => {
+export default function ShoppingCart({ cartDisplayed, setCartDisplayed }) {
   const cart = useCart();
   const promotions = useStore((state) => state.promotions);
 
@@ -144,7 +144,7 @@ export default ({ cartDisplayed, setCartDisplayed }) => {
                       </div>
                       <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
                         <p>
-                          or
+                          or&nbsp;
                           <button
                             type="button"
                             className="font-medium text-indigo-600 hover:text-indigo-500"

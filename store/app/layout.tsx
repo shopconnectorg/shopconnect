@@ -4,7 +4,6 @@ import { Inter } from 'next/font/google'
 import Navbar from './navbar';
 import './globals.css'
 import ShopConnectPlugin from '@/shopconnect-plugin/components/ShopConnectPlugin';
-import { storeId } from '@/data/storeData';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -20,7 +19,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className} data-theme="light" style={{ backgroundColor: storeId === 'store1' ? '#fff' : '#ccc'}}>
+      <body className={inter.className} data-theme="light">
         <Navbar />
         {children}
         <ShopConnectPlugin />

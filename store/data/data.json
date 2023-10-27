@@ -11,16 +11,16 @@
         "category": "budget_coffee_machines",
         "brand": "DeLongi",
         "price": 100,
-        "image": "http://localhost:3000/images/budget_coffee_maker.jpg"
+        "image": "http://localhost:3000/images/products/budget_coffee_maker.jpg"
       },
       {
         "id": 2,
-        "name": "Premium Coffee Maker",
+        "name": "Premium Espresso Coffee Maker",
         "description": "Where coffee becomes an art form. Precision, customization, and premium design for a coffee experience like no other.",
         "category": "premium_coffee_machines",
         "brand": "Breville",
         "price": 1000,
-        "image": "https://m.media-amazon.com/images/I/61MsT0AQSrL._AC_SL1500_.jpg"
+        "image": "http://localhost:3000/images/products/coffee_maker_pro.jpg"
       },
       {
         "id": 3,
@@ -28,15 +28,15 @@
         "description": "Grind your own coffee beans and experience a whole new level of freshness.",
         "category": "coffee_brewing_supplies",
         "price": 50,
-        "image": "https://img.fruugo.com/product/8/62/224110628_max.jpg"
+        "image": "http://localhost:3000/images/products/coffee_grinder.jpg"
       },
       {
         "id": 4,
-        "name": "Coffee Scale",
+        "name": "Scale",
         "description": "The perfect cup of coffee requires precision. This scale helps you measure the right amount of coffee beans and water.",
         "category": "coffee_brewing_supplies",
         "price": 25,
-        "image": "https://www.coffeeitalia.nl/media/catalog/product/cache/1/image/988x988/9df78eab33525d08d6e5fb8d27136e95/a/c/acaia_lunar_1.jpg"
+        "image": "http://localhost:3000/images/products/scale.jpg"
       },
       {
         "id": 5,
@@ -44,15 +44,15 @@
         "description": "Keep your coffee beans fresh with this stainless steel canister. The vacuum seal keeps oxygen out and the built-in calendar wheel helps you track the freshness of your beans.",
         "category": "coffee_brewing_supplies",
         "price": 25,
-        "image": "https://cdn.apartmenttherapy.info/image/upload/v1675356132/gen-workflow/product-database/prepara-evak-coffee-storage-container-amazon.jpg"
+        "image": "http://localhost:3000/images/products/container.webp"
       },
       {
         "id": 6,
-        "name": "Coffee Filter",
+        "name": "Coffee Filters",
         "description": "Specially designed for your coffee maker, this filter ensures that you get the perfect cup of coffee every time.",
         "category": "coffee_brewing_supplies",
         "price": 5,
-        "image": "https://m.media-amazon.com/images/I/71lT9mEEJVL._AC_SL1500_.jpg"
+        "image": "http://localhost:3000/images/products/filter.jpg"
       },
       {
         "id": 7,
@@ -60,7 +60,7 @@
         "description": "The perfect vessel for your coffee. The double-walled glass keeps your coffee warm and your hands cool.",
         "category": "coffee_brewing_supplies",
         "price": 15,
-        "image": "https://m.media-amazon.com/images/I/51Xrpnw14DL.jpg"
+        "image": "http://localhost:3000/images/products/mug.jpg"
       },
       {
         "id": 8,
@@ -68,7 +68,7 @@
         "description": "The perfect spoon to measure your coffee. The long handle lets you reach into the bottom of the bag and the clip keeps your coffee fresh.",
         "category": "coffee_brewing_supplies",
         "price": 5,
-        "image": "https://www.nicobar.com/cdn/shop/products/1_a6ca942b-49ac-42d1-b4fe-320b7773eed4_1024x.jpg?v=1661364738"
+        "image": "http://localhost:3000/images/products/coffee_spoon.jpg"
       }
     ]
   },

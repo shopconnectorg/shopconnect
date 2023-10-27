@@ -8,7 +8,7 @@ import { useShopConnectStore } from '@/shopconnect-plugin/sc-store';
 import { computeItemPromotion } from "@/src/utils";
 import { Item } from "@/src/types";
 
-export default function Page() {
+export default function CheckoutPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const cart = useCart();
@@ -120,15 +120,15 @@ export default function Page() {
                             <h3>
                               <a href={cartItem.item.name}>{cartItem.item.name}</a>
                             </h3>
-                            <p className="ml-4">{itemPrice(cartItem.item)}</p>
+                            <div className="ml-4">{itemPrice(cartItem.item)}</div>
                           </div>
-                          <p className="mt-1 text-sm text-gray-500">
+                          <div className="mt-1 text-sm text-gray-500">
                             {cartItem.item.description}
-                          </p>
+                          </div>
                         </div>
                         <div className="flex flex-1 items-end justify-between text-sm">
                           <p className="text-gray-500">
-                            Qantity: {cartItem.quantity}
+                            Quantity: {cartItem.quantity}
                           </p>
 
                           <div className="flex">
